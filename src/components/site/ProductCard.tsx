@@ -4,6 +4,7 @@ import { Eye, Heart, ShoppingBag, Star } from "lucide-react";
 import { useState } from "react";
 import type { Product } from "@/data/products";
 import { useShop } from "@/store/shop";
+import { waLink, waProductMessage } from "@/config/whatsapp";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
