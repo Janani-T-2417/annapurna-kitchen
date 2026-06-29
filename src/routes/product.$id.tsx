@@ -2,9 +2,11 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Heart, Minus, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
-import { categories, getProduct, getProductsByCategory } from "@/data/products";
+import { categories, getProduct, getProductsByCategory, type Product } from "@/data/products";
 import { useShop } from "@/store/shop";
 import { ProductCard } from "@/components/site/ProductCard";
+
+type Weight = Product["weights"][number];
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/product/$id")({
@@ -34,7 +36,7 @@ function ProductPage() {
   const [weight, setWeight] = useState(product.weights[0].label);
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
-  const w = product.weights.find((x) => x.label === weight) ?? product.weights[0];
+  const w = product.weights.find((x: Weight) => x.label === weight) ?? product.weights[0];
 
   const related = getProductsByCategory(product.category).filter((p) => p.id !== product.id).slice(0, 4);
 
@@ -109,7 +111,7 @@ function ProductPage() {
           <div className="mt-6">
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Weight</p>
             <div className="flex flex-wrap gap-2">
-              {product.weights.map((opt) => (
+              {product.weights.map((opt: Weight) => (
                 <button
                   key={opt.label}
                   onClick={() => setWeight(opt.label)}
