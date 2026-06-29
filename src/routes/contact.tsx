@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Clock, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Send, Youtube } from "lucide-react";
+import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
