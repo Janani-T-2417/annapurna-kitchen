@@ -13,6 +13,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ShopProvider } from "@/store/shop";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
 function NotFoundComponent() {
   return (
@@ -110,6 +111,7 @@ function RootComponent() {
             <Outlet />
           </main>
           <Footer />
+          <WhatsAppFab />
         </div>
       </ShopProvider>
     </QueryClientProvider>

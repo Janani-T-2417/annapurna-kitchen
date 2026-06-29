@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Clock, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Send, Youtube } from "lucide-react";
+import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -29,6 +30,28 @@ function ContactPage() {
       <section className="container-x grid lg:grid-cols-[1fr_1.2fr] gap-10 pb-16">
         {/* Info */}
         <div className="grid gap-4">
+          {/* Featured WhatsApp Card */}
+          <a
+            href={waLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#25D366] to-[#128C7E] p-6 text-white shadow-card hover-lift"
+          >
+            <div className="flex items-start gap-4">
+              <div className="grid h-14 w-14 place-items-center rounded-full bg-white/20 backdrop-blur shrink-0">
+                <MessageCircle className="h-7 w-7" />
+              </div>
+              <div className="flex-1">
+                <div className="text-[11px] uppercase tracking-[0.25em] opacity-90">WhatsApp</div>
+                <div className="mt-1 font-display text-2xl">Chat with us on WhatsApp</div>
+                <div className="mt-1 text-sm opacity-90">{WHATSAPP_DISPLAY}</div>
+                <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#128C7E] shadow">
+                  Open WhatsApp
+                </span>
+              </div>
+            </div>
+          </a>
+
           {[
             { i: Phone, t: "Call us", v: "+91 98000 12345", h: "tel:+919800012345" },
             { i: MessageCircle, t: "WhatsApp", v: "+91 98000 12345", h: "https://wa.me/919800012345" },

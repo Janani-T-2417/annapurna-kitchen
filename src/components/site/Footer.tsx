@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { categories } from "@/data/products";
+import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
 export function Footer() {
   return (
@@ -62,6 +63,11 @@ export function Footer() {
           <h4 className="font-display text-lg mb-4">Get in Touch</h4>
           <ul className="grid gap-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-primary" /> +91 98000 12345</li>
+            <li>
+              <a href={waLink()} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 hover:text-primary">
+                <MessageCircle className="h-4 w-4 mt-0.5 text-[#25D366]" /> WhatsApp: {WHATSAPP_DISPLAY}
+              </a>
+            </li>
             <li className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary" /> hello@annapurnafoods.in</li>
             <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary" /> Vijayawada, Andhra Pradesh, India</li>
           </ul>
