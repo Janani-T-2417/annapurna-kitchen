@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { categories } from "@/data/products";
+import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
 export function Footer() {
   return (
