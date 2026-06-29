@@ -1,4 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { Link, useParams } from "react-router-dom";
+import NotFound from "./NotFound";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Heart, Minus, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
@@ -10,29 +11,13 @@ import { waLink, waProductMessage } from "@/config/whatsapp";
 type Weight = Product["weights"][number];
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/product/$id")({
-  loader: ({ params }) => {
-    const product = getProduct(params.id);
-    if (!product) throw notFound();
-    const cat = categories.find((c) => c.slug === product.category);
-    return { product, cat };
-  },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.product.name} — Annapurna Foods` },
-          { name: "description", content: loaderData.product.description },
-          { property: "og:title", content: `${loaderData.product.name} — Annapurna Foods` },
-          { property: "og:description", content: loaderData.product.description },
-          { property: "og:image", content: loaderData.product.image },
-        ]
-      : [],
-  }),
-  component: ProductPage,
-});
 
-function ProductPage() {
-  const { product, cat } = Route.useLoaderData();
+
+export default function Product() {
+  const { id } = useParams();
+  const product = getProduct(id!);
+  if (!product) return <NotFound />;
+  const cat = categories.find((c) => c.slug === product.category);
   const { addToCart, toggleWishlist, inWishlist } = useShop();
   const [weight, setWeight] = useState(product.weights[0].label);
   const [qty, setQty] = useState(1);
@@ -49,7 +34,7 @@ function ProductPage() {
           <ChevronRight className="h-3 w-3" />
           {cat && (
             <>
-              <Link to="/category/$slug" params={{ slug: cat.slug }} className="hover:text-primary">{cat.name}</Link>
+              <Link to={`/category/${cat.slug}`} className="hover:text-primary">{cat.name}</Link>
               <ChevronRight className="h-3 w-3" />
             </>
           )}

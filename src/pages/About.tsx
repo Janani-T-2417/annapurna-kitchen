@@ -1,21 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Award, Heart, Leaf, ShieldCheck, Sparkles, Utensils } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import logo from "@/assets/logo.png";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Annapurna Foods" },
-      { name: "description", content: "Three generations of Andhra recipes, homemade with love, tradition and 100% natural ingredients." },
-      { property: "og:title", content: "About Annapurna Foods" },
-      { property: "og:description", content: "Our story of tradition, family and authentic Andhra flavours." },
-      { property: "og:image", content: hero },
-    ],
-  }),
-  component: AboutPage,
-});
 
 const values = [
   { i: Utensils, t: "Homemade", d: "Every jar is crafted by hand in small, hygienic batches." },
@@ -26,7 +12,7 @@ const values = [
   { i: Award, t: "Family Trust", d: "Loved by 2,400+ families across India." },
 ];
 
-function AboutPage() {
+export default function About() {
   return (
     <div>
       <section className="relative">

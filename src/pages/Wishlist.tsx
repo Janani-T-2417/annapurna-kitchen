@@ -1,19 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Heart, ShoppingBag } from "lucide-react";
 import { products } from "@/data/products";
 import { useShop } from "@/store/shop";
 
-export const Route = createFileRoute("/wishlist")({
-  head: () => ({
-    meta: [
-      { title: "Wishlist — Annapurna Foods" },
-      { name: "description", content: "Your saved homemade Andhra favourites." },
-    ],
-  }),
-  component: WishlistPage,
-});
-
-function WishlistPage() {
+export default function Wishlist() {
   const { wishlist, toggleWishlist, addToCart } = useShop();
   const items = products.filter((p) => wishlist.includes(p.id));
 
@@ -38,7 +28,7 @@ function WishlistPage() {
             <div key={p.id} className="flex gap-4 rounded-3xl bg-card p-4 shadow-soft border border-border/60">
               <img src={p.image} alt={p.name} className="h-24 w-24 rounded-2xl object-cover" />
               <div className="flex-1 min-w-0">
-                <Link to="/product/$id" params={{ id: p.id }} className="font-display text-lg hover:text-primary">{p.name}</Link>
+                <Link to={`/product/${p.id}`} className="font-display text-lg hover:text-primary">{p.name}</Link>
                 <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{p.description}</p>
                 <div className="mt-3 flex items-center gap-3">
                   <span className="font-display text-lg text-primary">₹{p.price}</span>

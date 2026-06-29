@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
@@ -17,7 +17,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { cartCount, wishlist } = useShop();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 12);
@@ -90,15 +90,18 @@ export function Navbar() {
         {/* Main nav (desktop) */}
         <nav className="hidden lg:flex items-center justify-center gap-1 pb-3 overflow-x-auto">
           {navLinks.map((l) => (
-            <Link
+            <NavLink
               key={l.to}
               to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
-              className="px-3 py-1.5 text-sm font-medium rounded-full text-foreground/70 hover:text-primary hover:bg-beige/60 transition"
-              activeProps={{ className: "px-3 py-1.5 text-sm font-semibold rounded-full text-primary bg-beige" }}
+              end={l.to === "/"}
+              className={({ isActive }) =>
+                isActive
+                  ? "px-3 py-1.5 text-sm font-semibold rounded-full text-primary bg-beige"
+                  : "px-3 py-1.5 text-sm font-medium rounded-full text-foreground/70 hover:text-primary hover:bg-beige/60 transition"
+              }
             >
               {l.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
       </div>
@@ -108,15 +111,18 @@ export function Navbar() {
         <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-md">
           <div className="container-x py-4 grid gap-1 max-h-[70vh] overflow-y-auto">
             {navLinks.map((l) => (
-              <Link
+              <NavLink
                 key={l.to}
                 to={l.to}
-                activeOptions={{ exact: l.to === "/" }}
-                className="block px-3 py-2.5 rounded-xl text-foreground/80 hover:bg-beige/60"
-                activeProps={{ className: "block px-3 py-2.5 rounded-xl text-primary font-semibold bg-beige" }}
+                end={l.to === "/"}
+                className={({ isActive }) =>
+                  isActive
+                    ? "block px-3 py-2.5 rounded-xl text-primary font-semibold bg-beige"
+                    : "block px-3 py-2.5 rounded-xl text-foreground/80 hover:bg-beige/60"
+                }
               >
                 {l.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
         </div>

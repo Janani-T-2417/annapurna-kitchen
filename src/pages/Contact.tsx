@@ -1,21 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Clock, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Send, Youtube } from "lucide-react";
 import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Annapurna Foods" },
-      { name: "description", content: "Get in touch with Annapurna Foods — call, WhatsApp, email or visit us in Andhra Pradesh." },
-      { property: "og:title", content: "Contact Annapurna Foods" },
-      { property: "og:description", content: "We'd love to hear from you." },
-    ],
-  }),
-  component: ContactPage,
-});
-
-function ContactPage() {
+export default function Contact() {
   const [sent, setSent] = useState(false);
   return (
     <div>

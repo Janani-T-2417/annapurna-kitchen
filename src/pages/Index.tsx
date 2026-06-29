@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Award, ChevronRight, Leaf, ShieldCheck, Sparkles, Star, Truck, Utensils } from "lucide-react";
 import hero from "@/assets/hero.jpg";
@@ -7,17 +7,7 @@ import { categories, featuredProducts } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SectionTitle } from "@/components/site/SectionTitle";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Annapurna Foods — Authentic Homemade Andhra Pickles & Delicacies" },
-      { name: "description", content: "Shop premium homemade Andhra pickles, podi, vadiyalu, sweets and snacks. Made with 100% natural ingredients, family recipes, and zero preservatives." },
-      { property: "og:title", content: "Annapurna Foods — The Goddess Of Food" },
-      { property: "og:description", content: "Premium homemade Andhra delicacies, crafted with love and tradition." },
-    ],
-  }),
-  component: HomePage,
-});
+
 
 const trust = [
   { icon: Utensils, label: "100% Homemade" },
@@ -43,7 +33,7 @@ const faqs = [
   { q: "Are ingredients sourced locally?", a: "Yes. Mangoes, chillies, gongura and spices are sourced directly from Andhra farms each season." },
 ];
 
-function HomePage() {
+export default function Index() {
   return (
     <div>
       <Hero />
@@ -106,8 +96,7 @@ function Hero() {
             className="mt-8 flex flex-wrap gap-3"
           >
             <Link
-              to="/category/$slug"
-              params={{ slug: "pickles" }}
+              to="/category/pickles"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-gold hover:text-gold-foreground transition"
             >
               Shop Now <ChevronRight className="h-4 w-4" />
@@ -207,8 +196,7 @@ function CategoriesSection() {
               transition={{ delay: (i % 4) * 0.06 }}
             >
               <Link
-                to="/category/$slug"
-                params={{ slug: c.slug }}
+                to={`/category/${c.slug}`}
                 className="group relative block rounded-[20px] overflow-hidden shadow-soft hover-lift"
               >
                 <div className="aspect-[4/5] relative">

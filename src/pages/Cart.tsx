@@ -1,19 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Minus, Plus, ShoppingBag, Tag, Trash2 } from "lucide-react";
 import { useShop } from "@/store/shop";
 
-export const Route = createFileRoute("/cart")({
-  head: () => ({
-    meta: [
-      { title: "Your Cart — Annapurna Foods" },
-      { name: "description", content: "Review your selection of premium homemade Andhra delicacies." },
-    ],
-  }),
-  component: CartPage,
-});
-
-function CartPage() {
+export default function Cart() {
   const { cart, updateQty, removeFromCart, cartTotal, clearCart } = useShop();
   const [coupon, setCoupon] = useState("");
   const [applied, setApplied] = useState<number>(0);
@@ -56,7 +46,7 @@ function CartPage() {
             <div key={it.productId + it.weightLabel} className="flex gap-4 rounded-3xl bg-card p-4 shadow-soft border border-border/60">
               <img src={it.product.image} alt={it.product.name} className="h-24 w-24 rounded-2xl object-cover" />
               <div className="flex-1 min-w-0">
-                <Link to="/product/$id" params={{ id: it.productId }} className="font-display text-lg hover:text-primary">{it.product.name}</Link>
+                <Link to={`/product/${it.productId}`} className="font-display text-lg hover:text-primary">{it.product.name}</Link>
                 <p className="text-xs text-muted-foreground">{it.weightLabel}</p>
                 <div className="mt-3 flex items-center justify-between gap-4 flex-wrap">
                   <div className="flex items-center rounded-full border border-border bg-warm">

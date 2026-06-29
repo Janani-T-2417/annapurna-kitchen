@@ -1,29 +1,11 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { Link, useParams } from "react-router-dom";
+import NotFound from "./NotFound";
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { categories, getProductsByCategory } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 
-export const Route = createFileRoute("/category/$slug")({
-  loader: ({ params }) => {
-    const cat = categories.find((c) => c.slug === params.slug);
-    if (!cat) throw notFound();
-    return { cat };
-  },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.cat.name} — Annapurna Foods` },
-          { name: "description", content: `Shop premium homemade ${loaderData.cat.name.toLowerCase()} — ${loaderData.cat.tagline}.` },
-          { property: "og:title", content: `${loaderData.cat.name} — Annapurna Foods` },
-          { property: "og:description", content: loaderData.cat.tagline },
-          { property: "og:image", content: loaderData.cat.hero },
-        ]
-      : [],
-  }),
-  component: CategoryPage,
-});
 
 // Deterministic pseudo-random for floating particle positions
 const particles = Array.from({ length: 14 }).map((_, i) => ({
@@ -34,8 +16,11 @@ const particles = Array.from({ length: 14 }).map((_, i) => ({
   dur: 7 + (i % 5),
 }));
 
-function CategoryPage() {
-  const { cat } = Route.useLoaderData();
+export default function Category() {
+  const { slug } = useParams();
+  const cat = categories.find((c) => c.slug === slug);
+  if (!cat) return <NotFound />;
+
   const all = getProductsByCategory(cat.slug);
   const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc" | "rating">("featured");
 

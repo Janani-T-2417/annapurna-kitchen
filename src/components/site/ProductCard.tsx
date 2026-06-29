@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Eye, Heart, ShoppingBag, Star } from "lucide-react";
 import { useState } from "react";
@@ -21,7 +21,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
       className="group relative flex flex-col rounded-[20px] bg-card shadow-soft hover-lift overflow-hidden border border-border/60"
     >
       {/* Image */}
-      <Link to="/product/$id" params={{ id: product.id }} className="relative block aspect-square overflow-hidden bg-beige/40">
+      <Link to={`/product/${product.id}`} className="relative block aspect-square overflow-hidden bg-beige/40">
         <img
           src={product.image}
           alt={product.name}
@@ -55,8 +55,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
             <Heart className="h-4 w-4" fill={inWishlist(product.id) ? "currentColor" : "none"} />
           </button>
           <Link
-            to="/product/$id"
-            params={{ id: product.id }}
+            to={`/product/${product.id}`}
             className="grid h-10 w-10 place-items-center rounded-full bg-white shadow hover:bg-primary hover:text-primary-foreground transition"
             aria-label="Quick view"
           >
@@ -74,7 +73,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           <span className="text-xs text-muted-foreground ml-1">{product.rating.toFixed(1)} ({product.reviews})</span>
         </div>
         <h3 className="font-display text-lg leading-snug line-clamp-2">
-          <Link to="/product/$id" params={{ id: product.id }} className="hover:text-primary transition">
+          <Link to={`/product/${product.id}`} className="hover:text-primary transition">
             {product.name}
           </Link>
         </h3>
