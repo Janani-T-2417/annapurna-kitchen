@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Eye, Heart, ShoppingBag, Star } from "lucide-react";
+import { Eye, Heart, PackageCheck, ShoppingBag, Star } from "lucide-react";
 import { useState } from "react";
 import type { Product } from "@/data/products";
 import { useShop } from "@/store/shop";
@@ -97,10 +97,15 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           ))}
         </div>
 
+        <div className="mt-2 flex items-center gap-2 rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-semibold text-primary">
+          <PackageCheck className="h-3.5 w-3.5" /> Packed in Premium Food Grade Jars
+        </div>
+
         <div className="mt-auto flex items-center justify-between pt-2">
           <div>
+            <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Price</div>
             <div className="font-display text-xl text-primary">₹{w.price}</div>
-            <div className="text-[10px] text-muted-foreground">incl. of taxes</div>
+            <div className="text-[10px] text-muted-foreground">{w.label} · incl. of taxes</div>
           </div>
           <button
             onClick={() => addToCart(product, weight, 1)}

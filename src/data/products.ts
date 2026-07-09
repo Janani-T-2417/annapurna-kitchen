@@ -132,6 +132,12 @@ export const categories: Category[] = [
   { slug: "papads", name: "Papads", emoji: "🥣", image: catPapads, hero: heroPapads, tagline: "Crisp, golden, hand-rolled", gradient: "from-[#1f1405]/90 via-[#7a4a10]/50 to-[#3d1f08]/45" },
 ];
 
+const jarWeights = (price250: number, price500: number, price1000: number) => [
+  { label: "250 g", grams: 250, price: price250 },
+  { label: "500 g", grams: 500, price: price500 },
+  { label: "1 kg", grams: 1000, price: price1000 },
+];
+
 const mk = (
   id: string,
   name: string,
@@ -147,11 +153,7 @@ const mk = (
   image,
   description,
   price: basePrice,
-  weights: [
-    { label: "250 g", grams: 250, price: basePrice },
-    { label: "500 g", grams: 500, price: Math.round(basePrice * 1.9) },
-    { label: "1 kg", grams: 1000, price: Math.round(basePrice * 3.6) },
-  ],
+  weights: jarWeights(basePrice, Math.round(basePrice * 1.9), Math.round(basePrice * 3.6)),
   rating: 4.6 + (id.charCodeAt(0) % 4) / 10,
   reviews: 40 + (id.charCodeAt(1) % 120),
   inStock: true,
@@ -178,11 +180,17 @@ const picklesList: Product[] = [
   ["gongura-pandu-mirchi", "Gongura Pandu Mirchi", 470, "Sorrel meets red chilli for double the punch.", imgGonguraPanduMirchi],
 ].map(([id, name, p, d, img]) => mk(id as string, name as string, "pickles", img as string, p as number, d as string));
 
+const kothapalliProduct = picklesList.find((product) => product.id === "kothapalli-kobari-avakaya");
+if (kothapalliProduct) {
+  kothapalliProduct.price = 200;
+  kothapalliProduct.weights = jarWeights(200, 350, 700);
+}
+
 // NON-VEG
 const nonVegList: Product[] = [
   ["chicken-boneless", "Chicken Boneless Pickle", 750, "Tender boneless chicken in slow-cooked masala oil.", imgChickenBoneless],
-  ["chicken-bone", "Chicken Bone Pickle", 720, "Traditional bone-in chicken pickle with deep flavour.", imgChickenBone],
-  ["prawn", "Prawn Pickle", 890, "Plump prawns layered with chilli and tamarind.", imgPrawn],
+  ["chicken-bone", "Chicken Pickle", 720, "Traditional bone-in chicken pickle with deep flavour.", imgChickenBone],
+  ["prawn", "Prawns Pickle", 890, "Plump prawns layered with chilli and tamarind.", imgPrawn],
   ["gongura-prawn", "Gongura Prawn Pickle", 920, "Sorrel-laced prawn pickle — coastal Andhra at its best.", imgGonguraPrawn],
   ["gongura-chicken", "Gongura Chicken Pickle", 820, "Sorrel and chicken slow-cooked with red chilli.", imgGonguraChicken],
   ["fish-koramenu", "Fish Koramenu Pickle", 850, "Firm river fish in a robust chilli masala.", imgFishKoramenu],
@@ -190,6 +198,24 @@ const nonVegList: Product[] = [
   ["gongura-mutton", "Gongura Mutton Pickle", 980, "Mutton & sorrel — rich, slow and indulgent.", imgGonguraMutton],
   ["natu-kodi", "Natu Kodi Pickle", 880, "Country chicken pickle with old-world depth.", imgNatuKodi],
 ].map(([id, name, p, d, img]) => mk(id as string, name as string, "non-veg-pickles", img as string, p as number, d as string, { badge: "Bestseller" }));
+
+const chickenBoneless = nonVegList.find((product) => product.id === "chicken-boneless");
+if (chickenBoneless) {
+  chickenBoneless.price = 1200;
+  chickenBoneless.weights = jarWeights(1200, 1200, 1200);
+}
+
+const chickenPickle = nonVegList.find((product) => product.id === "chicken-bone");
+if (chickenPickle) {
+  chickenPickle.price = 1000;
+  chickenPickle.weights = jarWeights(1000, 1000, 1000);
+}
+
+const prawnPickle = nonVegList.find((product) => product.id === "prawn");
+if (prawnPickle) {
+  prawnPickle.price = 1600;
+  prawnPickle.weights = jarWeights(1600, 1600, 1600);
+}
 
 // VEG PICKLES
 const vegEntries: [string, string, string][] = [
@@ -221,17 +247,21 @@ const vegList: Product[] = vegEntries.map(([slug, n, img], i) =>
     img,
     380 + ((i * 10) % 120),
     "Traditional Andhra-style " + n.toLowerCase() + " pickle, slow-cured with cold-pressed oil.",
+    {
+      weights: jarWeights(150, 300, 600),
+      price: 150,
+    },
   ),
 );
 
 // PODI
 const podiList: Product[] = [
-  ["karapodi", "Karapodi", 520, "Fiery lentil-chilli powder for rice and ghee.", imgKarapodi],
-  ["kandipodi", "Kandipodi", 540, "Toor dal podi with garlic and red chilli.", imgKandipodi],
-  ["nuvvula-podi", "Nuvvula Podi", 560, "Sesame podi — nutty, rich and warming.", imgNuvvulaPodi],
-  ["karivepaku-podi", "Karivepaku Podi", 520, "Curry leaf podi packed with iron and aroma.", imgKarivepakuPodi],
+  ["karapodi", "Karapodi", 650, "Fiery lentil-chilli powder for rice and ghee.", imgKarapodi],
+  ["kandipodi", "Kandipodi", 650, "Toor dal podi with garlic and red chilli.", imgKandipodi],
+  ["nuvvula-podi", "Nuvvula Podi", 650, "Sesame podi — nutty, rich and warming.", imgNuvvulaPodi],
+  ["karivepaku-podi", "Karivepaku Podi", 650, "Curry leaf podi packed with iron and aroma.", imgKarivepakuPodi],
   ["masala-karam", "Masala Karam Powder", 650, "All-purpose Andhra masala — your everyday secret.", imgMasalaKaram],
-  ["plain-chilli", "Plain Chilli Powder", 600, "Sun-dried Guntur chillies, stone-ground.", imgPlainChilli],
+  ["plain-chilli", "Plain Chilli Powder", 650, "Sun-dried Guntur chillies, stone-ground.", imgPlainChilli],
   ["sambar-karam", "Sambar Karam", 650, "Hand-blended sambar masala with whole spices.", imgSambarKaram],
   ["pickle-chilli", "Pickle Chilli Powder", 650, "Coarse pickle-grade chilli for that perfect colour.", imgPickleChilli],
   ["organic-turmeric", "Organic Turmeric Powder", 500, "High-curcumin turmeric, pesticide-free.", imgOrganicTurmeric],

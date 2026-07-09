@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Award, ChevronRight, Leaf, ShieldCheck, Sparkles, Star, Truck, Utensils } from "lucide-react";
+import { Award, BadgeCheck, ChevronRight, Leaf, PackageCheck, Percent, ShieldCheck, Sparkles, Star, Store, Truck, Utensils, Users } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import logo from "@/assets/logo.png";
 import { categories, featuredProducts } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SectionTitle } from "@/components/site/SectionTitle";
+import { waLink, WHATSAPP_DEFAULT_MESSAGE } from "@/config/whatsapp";
 
 
 
@@ -16,6 +17,25 @@ const trust = [
   { icon: Sparkles, label: "Natural Process" },
   { icon: Award, label: "Hygienically Made" },
   { icon: Truck, label: "Pan-India Shipping" },
+];
+
+const premiumCaptions = [
+  "🌿 No Chemicals",
+  "🌿 No Preservatives",
+  "🫙 Packed in Premium Food Grade Jars",
+  "🌶 Traditional Andhra Recipes",
+  "❤️ Homemade With Love",
+  "🥭 Fresh Ingredients",
+];
+
+const whyChoose = [
+  { icon: Utensils, title: "Homemade Recipes", text: "Every batch is stirred and sealed in small kitchens with age-old Andhra flavour." },
+  { icon: PackageCheck, title: "Premium Jar Packaging", text: "Freshly packed in food-grade jars that keep every bite rich and hygienic." },
+  { icon: Leaf, title: "No Chemicals", text: "Pure ingredients, no artificial additives, and no shortcut methods." },
+  { icon: ShieldCheck, title: "No Preservatives", text: "Crafted for freshness with traditional recipes and careful storage." },
+  { icon: Sparkles, title: "100% Natural", text: "Sun-dried chilli, hand-picked produce and cold-pressed oils only." },
+  { icon: BadgeCheck, title: "Traditional Andhra Taste", text: "Bold, authentic flavours inspired by family kitchens across the coast." },
+  { icon: Star, title: "Freshly Prepared", text: "Made in small batches so every jar feels as fresh as the first." },
 ];
 
 const testimonials = [
@@ -39,7 +59,10 @@ export default function Index() {
       <Hero />
       <TrustBar />
       <CategoriesSection />
+      <DiscountSection />
+      <WholesaleSection />
       <FeaturedSection />
+      <WhyChooseSection />
       <StoryBand />
       <TestimonialsSection />
       <FAQSection />
@@ -113,7 +136,20 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-10 flex items-center gap-5 text-sm"
+            className="mt-6 flex flex-wrap gap-2"
+          >
+            {premiumCaptions.map((caption) => (
+              <span key={caption} className="rounded-full border border-primary/20 bg-white/80 px-3 py-1 text-xs font-semibold text-primary shadow-sm">
+                {caption}
+              </span>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="mt-8 flex items-center gap-5 text-sm"
           >
             <div className="flex items-center gap-1 text-gold">
               {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4" fill="currentColor" />)}
@@ -217,6 +253,105 @@ function CategoriesSection() {
   );
 }
 
+function DiscountSection() {
+  return (
+    <section className="section-pad pt-0">
+      <div className="container-x grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="rounded-[28px] border border-primary/15 bg-gradient-to-br from-[#0D7A52] via-[#0f8b59] to-[#1f6b41] p-8 text-primary-foreground shadow-gold"
+        >
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]">
+            <Percent className="h-3.5 w-3.5" /> Special Offers
+          </div>
+          <h2 className="mt-5 font-display text-3xl md:text-4xl">Purchase above ₹2000</h2>
+          <p className="mt-3 max-w-lg text-sm leading-relaxed text-primary-foreground/90">
+            Enjoy an instant 10% OFF when you stock up on your favourite homemade delicacies for family feasts and celebrations.
+          </p>
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#ffe18a] px-4 py-2 text-sm font-semibold text-[#5b3c02]">
+            <Sparkles className="h-4 w-4" /> Get 10% OFF
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.08 }}
+          className="rounded-[28px] border border-gold/30 bg-card/95 p-8 shadow-soft"
+        >
+          <div className="inline-flex items-center gap-2 rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <Store className="h-3.5 w-3.5" /> Bulk Savings
+          </div>
+          <h2 className="mt-5 font-display text-3xl md:text-4xl">Buy More & Save More</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            For bulk chilli powder orders above 5 kg, our team can offer a premium discount with faster dispatch.
+          </p>
+          <div className="mt-6 rounded-2xl border border-primary/10 bg-warm p-4 text-sm text-foreground/80">
+            <p className="font-semibold text-primary">Special Discount Available</p>
+            <p className="mt-1">Perfect for apartments, gated communities, and large family gatherings.</p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function WholesaleSection() {
+  return (
+    <section className="section-pad pt-0">
+      <div className="container-x">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="rounded-[32px] border border-primary/10 bg-gradient-to-br from-cream via-white to-[#fef6d9] p-8 shadow-card"
+        >
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] gold-text">Wholesale Orders</p>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl">Premium supply for apartments, gated communities and bulk groups</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                We offer wholesale pricing for large family groups, resident welfare associations and corporate gifting needs.
+              </p>
+            </div>
+            <a href={waLink(WHATSAPP_DEFAULT_MESSAGE)} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-gold hover:text-gold-foreground transition">
+              <PackageCheck className="h-4 w-4" /> Contact on WhatsApp
+            </a>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              { title: "Apartments", icon: Store },
+              { title: "Gated Communities", icon: ShieldCheck },
+              { title: "Groups & Bulk Orders", icon: Users },
+              { title: "Trusted Packaging", icon: PackageCheck },
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="rounded-2xl border border-border/70 bg-white/80 p-4 shadow-soft">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary"><Icon className="h-5 w-5" /></div>
+                  <h3 className="mt-4 font-semibold text-foreground">{item.title}</h3>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3 text-sm text-foreground/80">
+            {['Whole Chillies', 'Chilli Powder', 'Masala Powder', 'Organic Turmeric Powder'].map((product) => (
+              <span key={product} className="rounded-full border border-primary/15 bg-white/80 px-3 py-1.5 shadow-sm">
+                {product}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 function FeaturedSection() {
   return (
     <section className="section-pad">
@@ -226,6 +361,37 @@ function FeaturedSection() {
           {featuredProducts().map((p, i) => (
             <ProductCard key={p.id} product={p} index={i} />
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyChooseSection() {
+  return (
+    <section className="section-pad pt-0">
+      <div className="container-x">
+        <SectionTitle eyebrow="Why Annapurna" title="Why Choose Annapurna Foods?" description="A premium pantry rooted in Andhra tradition, trusted by families who value freshness and authenticity." />
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {whyChoose.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="rounded-[24px] border border-border/70 bg-card p-6 shadow-soft"
+              >
+                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 font-display text-2xl">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

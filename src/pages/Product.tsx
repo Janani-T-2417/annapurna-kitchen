@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Heart, Minus, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
+import { BadgeCheck, ChevronRight, Heart, Leaf, Minus, PackageCheck, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
 import { categories, getProduct, getProductsByCategory, type Product } from "@/data/products";
 import { useShop } from "@/store/shop";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -89,13 +89,41 @@ export default function Product() {
           </div>
           <p className="mt-4 text-foreground/80 leading-relaxed">{product.description}</p>
 
-          <div className="mt-6 flex items-end gap-3">
-            <div className="font-display text-4xl text-primary">₹{w.price}</div>
-            <div className="text-sm text-muted-foreground">/ {w.label} · incl. taxes</div>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div className="rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="inline-flex items-center gap-1.5"><PackageCheck className="h-3.5 w-3.5" /> Premium Jar Packaging</span>
+            </div>
+            <div className="rounded-full bg-gold/20 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-foreground/80">
+              <span className="inline-flex items-center gap-1.5"><Leaf className="h-3.5 w-3.5" /> Natural Ingredients</span>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-[24px] border border-primary/10 bg-card p-5 shadow-soft">
+            <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Price</div>
+            <div className="mt-2 flex items-end gap-3">
+              <div className="font-display text-4xl text-primary">₹{w.price}</div>
+              <div className="text-sm text-muted-foreground">/ {w.label} · incl. taxes</div>
+            </div>
+            <div className="mt-3 flex items-center gap-2 text-sm text-primary">
+              <PackageCheck className="h-4 w-4" /> Freshly Packed in Premium Jar
+            </div>
+            <div className="mt-4 space-y-2 text-sm text-foreground/80">
+              {[
+                "✔ Hygienically Packed",
+                "✔ Premium Food Grade Jar",
+                "✔ Leak Proof Packaging",
+                "✔ Freshly Sealed",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <PackageCheck className="h-4 w-4 text-primary" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-6">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Weight</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Weight Options</p>
             <div className="flex flex-wrap gap-2">
               {product.weights.map((opt: Weight) => (
                 <button
