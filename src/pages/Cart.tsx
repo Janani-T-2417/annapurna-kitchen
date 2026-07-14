@@ -26,8 +26,13 @@ export default function Cart() {
             <ShoppingBag className="h-8 w-8 text-primary" />
           </div>
           <h1 className="mt-6 font-display text-4xl">Your cart is empty</h1>
-          <p className="mt-3 text-muted-foreground">Looks like you haven't added any goodness yet.</p>
-          <Link to="/" className="mt-6 inline-flex rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-gold hover:text-gold-foreground transition">
+          <p className="mt-3 text-muted-foreground">
+            Looks like you haven't added any goodness yet.
+          </p>
+          <Link
+            to="/"
+            className="mt-6 inline-flex rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-gold hover:text-gold-foreground transition"
+          >
             Start Shopping
           </Link>
         </div>
@@ -38,31 +43,64 @@ export default function Cart() {
   return (
     <section className="container-x py-12">
       <h1 className="font-display text-4xl md:text-5xl">Your Cart</h1>
-      <p className="mt-2 text-muted-foreground">{cart.length} item{cart.length > 1 ? "s" : ""} ready to ship</p>
+      <p className="mt-2 text-muted-foreground">
+        {cart.length} item{cart.length > 1 ? "s" : ""} ready to ship
+      </p>
 
       <div className="mt-8 grid lg:grid-cols-[1fr_380px] gap-8">
         <div className="grid gap-4">
           {cart.map((it) => (
-            <div key={it.productId + it.weightLabel} className="flex gap-4 rounded-3xl bg-card p-4 shadow-soft border border-border/60">
-              <img src={it.product.image} alt={it.product.name} className="h-24 w-24 rounded-2xl object-cover" />
+            <div
+              key={it.productId + it.weightLabel}
+              className="flex gap-4 rounded-3xl bg-card p-4 shadow-soft border border-border/60"
+            >
+              <img
+                src={it.product.image}
+                alt={it.product.name}
+                className="h-24 w-24 rounded-2xl object-cover"
+              />
               <div className="flex-1 min-w-0">
-                <Link to={`/product/${it.productId}`} className="font-display text-lg hover:text-primary">{it.product.name}</Link>
+                <Link
+                  to={`/product/${it.productId}`}
+                  className="font-display text-lg hover:text-primary"
+                >
+                  {it.product.name}
+                </Link>
                 <p className="text-xs text-muted-foreground">{it.weightLabel}</p>
                 <div className="mt-3 flex items-center justify-between gap-4 flex-wrap">
                   <div className="flex items-center rounded-full border border-border bg-warm">
-                    <button onClick={() => updateQty(it.productId, it.weightLabel, it.qty - 1)} className="grid h-9 w-9 place-items-center"><Minus className="h-3.5 w-3.5" /></button>
+                    <button
+                      onClick={() => updateQty(it.productId, it.weightLabel, it.qty - 1)}
+                      className="grid h-9 w-9 place-items-center"
+                    >
+                      <Minus className="h-3.5 w-3.5" />
+                    </button>
                     <span className="w-8 text-center text-sm font-semibold">{it.qty}</span>
-                    <button onClick={() => updateQty(it.productId, it.weightLabel, it.qty + 1)} className="grid h-9 w-9 place-items-center"><Plus className="h-3.5 w-3.5" /></button>
+                    <button
+                      onClick={() => updateQty(it.productId, it.weightLabel, it.qty + 1)}
+                      className="grid h-9 w-9 place-items-center"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                    </button>
                   </div>
                   <div className="font-display text-lg text-primary">₹{it.price * it.qty}</div>
                 </div>
               </div>
-              <button onClick={() => removeFromCart(it.productId, it.weightLabel)} className="self-start text-muted-foreground hover:text-brand-red" aria-label="Remove">
+              <button
+                onClick={() => removeFromCart(it.productId, it.weightLabel)}
+                className="self-start text-muted-foreground hover:text-brand-red"
+                aria-label="Remove"
+              >
                 <Trash2 className="h-4 w-4" />
               </button>
             </div>
           ))}
-          <button onClick={clearCart} className="text-xs text-muted-foreground hover:text-brand-red self-start">Clear cart</button>
+          <button
+            onClick={clearCart}
+            className="text-xs text-muted-foreground hover:text-brand-red self-start"
+          >
+            Clear cart
+          </button>
         </div>
 
         {/* Summary */}
@@ -87,16 +125,23 @@ export default function Cart() {
               placeholder="Coupon code"
               className="flex-1 bg-transparent px-2 py-2 text-sm outline-none"
             />
-            <button onClick={applyCoupon} className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-gold hover:text-gold-foreground transition">
+            <button
+              onClick={applyCoupon}
+              className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-gold hover:text-gold-foreground transition"
+            >
               Apply
             </button>
           </div>
-          <p className="mt-2 text-[11px] text-muted-foreground">Try <span className="font-semibold">WELCOME10</span> for 10% off.</p>
+          <p className="mt-2 text-[11px] text-muted-foreground">
+            Try <span className="font-semibold">WELCOME10</span> for 10% off.
+          </p>
 
           <button className="mt-6 w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-gold hover:text-gold-foreground transition">
             Proceed to Checkout
           </button>
-          <p className="mt-3 text-center text-xs text-muted-foreground">Free shipping on orders above ₹999</p>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            Free shipping on orders above ₹999
+          </p>
         </aside>
       </div>
     </section>

@@ -98,11 +98,14 @@ export type Category = {
   name: string;
   emoji: string;
   image: string; // small tile
-  hero: string;  // wide hero banner
+  hero: string; // wide hero banner
   tagline: string;
   /** Tailwind gradient stops for the hero overlay. */
   gradient: string;
 };
+
+export type WeightLabel = "250g" | "500g" | "1kg";
+export type WeightOption = { label: WeightLabel; grams: number; price: number };
 
 export type Product = {
   id: string;
@@ -111,7 +114,7 @@ export type Product = {
   description: string;
   image: string;
   price: number;
-  weights: { label: string; grams: number; price: number }[];
+  weights: Record<WeightLabel, number>;
   rating: number;
   reviews: number;
   inStock: boolean;
@@ -122,21 +125,104 @@ export type Product = {
 };
 
 export const categories: Category[] = [
-  { slug: "pickles", name: "Pickles", emoji: "🥭", image: catPickles, hero: heroPickles, tagline: "Signature Andhra avakaya & more", gradient: "from-[#3d1b0a]/85 via-[#7a2e10]/55 to-[#0D7A52]/35" },
-  { slug: "non-veg-pickles", name: "Non Veg Pickles", emoji: "🍗", image: catNonveg, hero: heroNonveg, tagline: "Fiery chicken, prawn, fish, mutton", gradient: "from-[#260a0a]/90 via-[#7a1010]/55 to-[#1a0606]/45" },
-  { slug: "veg-pickles", name: "Veg Pickles", emoji: "🥬", image: catVeg, hero: heroVeg, tagline: "Garden-fresh, sun-cured pickles", gradient: "from-[#0d2918]/85 via-[#0D7A52]/55 to-[#3d1f08]/40" },
-  { slug: "podi", name: "Podi", emoji: "🌶", image: catPodi, hero: heroPodi, tagline: "Stone-ground spice powders", gradient: "from-[#1a0d05]/90 via-[#5a1a0a]/55 to-[#D4AF37]/30" },
-  { slug: "snacks", name: "Snacks", emoji: "🍘", image: catSnacks, hero: heroSnacks, tagline: "Crispy homemade savouries", gradient: "from-[#2a1605]/85 via-[#7a3a0a]/50 to-[#0D7A52]/35" },
-  { slug: "sweets", name: "Sweets", emoji: "🍪", image: catSweets, hero: heroSweets, tagline: "Festive Andhra mithai", gradient: "from-[#1f0a1a]/85 via-[#7a2350]/45 to-[#D4AF37]/35" },
-  { slug: "vadiyalu", name: "Vadiyalu", emoji: "🍥", image: catVadiyalu, hero: heroVadiyalu, tagline: "Sun-dried fritters", gradient: "from-[#2a1d05]/85 via-[#a86a1a]/40 to-[#0D7A52]/35" },
-  { slug: "papads", name: "Papads", emoji: "🥣", image: catPapads, hero: heroPapads, tagline: "Crisp, golden, hand-rolled", gradient: "from-[#1f1405]/90 via-[#7a4a10]/50 to-[#3d1f08]/45" },
+  {
+    slug: "pickles",
+    name: "Pickles",
+    emoji: "🥭",
+    image: catPickles,
+    hero: heroPickles,
+    tagline: "Signature Andhra avakaya & more",
+    gradient: "from-[#3d1b0a]/85 via-[#7a2e10]/55 to-[#0D7A52]/35",
+  },
+  {
+    slug: "non-veg-pickles",
+    name: "Non Veg Pickles",
+    emoji: "🍗",
+    image: catNonveg,
+    hero: heroNonveg,
+    tagline: "Fiery chicken, prawn, fish, mutton",
+    gradient: "from-[#260a0a]/90 via-[#7a1010]/55 to-[#1a0606]/45",
+  },
+  {
+    slug: "veg-pickles",
+    name: "Veg Pickles",
+    emoji: "🥬",
+    image: catVeg,
+    hero: heroVeg,
+    tagline: "Garden-fresh, sun-cured pickles",
+    gradient: "from-[#0d2918]/85 via-[#0D7A52]/55 to-[#3d1f08]/40",
+  },
+  {
+    slug: "podi",
+    name: "Podi",
+    emoji: "🌶",
+    image: catPodi,
+    hero: heroPodi,
+    tagline: "Stone-ground spice powders",
+    gradient: "from-[#1a0d05]/90 via-[#5a1a0a]/55 to-[#D4AF37]/30",
+  },
+  {
+    slug: "snacks",
+    name: "Snacks",
+    emoji: "🍘",
+    image: catSnacks,
+    hero: heroSnacks,
+    tagline: "Crispy homemade savouries",
+    gradient: "from-[#2a1605]/85 via-[#7a3a0a]/50 to-[#0D7A52]/35",
+  },
+  {
+    slug: "sweets",
+    name: "Sweets",
+    emoji: "🍪",
+    image: catSweets,
+    hero: heroSweets,
+    tagline: "Festive Andhra mithai",
+    gradient: "from-[#1f0a1a]/85 via-[#7a2350]/45 to-[#D4AF37]/35",
+  },
+  {
+    slug: "vadiyalu",
+    name: "Vadiyalu",
+    emoji: "🍥",
+    image: catVadiyalu,
+    hero: heroVadiyalu,
+    tagline: "Sun-dried fritters",
+    gradient: "from-[#2a1d05]/85 via-[#a86a1a]/40 to-[#0D7A52]/35",
+  },
+  {
+    slug: "papads",
+    name: "Papads",
+    emoji: "🥣",
+    image: catPapads,
+    hero: heroPapads,
+    tagline: "Crisp, golden, hand-rolled",
+    gradient: "from-[#1f1405]/90 via-[#7a4a10]/50 to-[#3d1f08]/45",
+  },
 ];
 
-const jarWeights = (price250: number, price500: number, price1000: number) => [
-  { label: "250 g", grams: 250, price: price250 },
-  { label: "500 g", grams: 500, price: price500 },
-  { label: "1 kg", grams: 1000, price: price1000 },
-];
+export const weightLabels: WeightLabel[] = ["250g", "500g", "1kg"];
+const weightGrams: Record<WeightLabel, number> = { "250g": 250, "500g": 500, "1kg": 1000 };
+
+export const buildWeightPrices = (price1kg: number) =>
+  ({
+    "250g": Math.round(price1kg / 4),
+    "500g": Math.round(price1kg / 2),
+    "1kg": price1kg,
+  }) as Record<WeightLabel, number>;
+
+export const getWeightOptions = (product: Product): WeightOption[] =>
+  weightLabels.map((label) => ({
+    label,
+    grams: weightGrams[label],
+    price: product.weights[label],
+  }));
+
+export const getWeightPrice = (product: Product, weightLabel?: string) => {
+  const normalizedLabel: WeightLabel =
+    weightLabel && weightLabel in product.weights ? (weightLabel as WeightLabel) : "250g";
+  return product.weights[normalizedLabel] ?? product.price ?? 0;
+};
+
+export const getDefaultWeightLabel = (product: Product): WeightLabel => "250g";
 
 const mk = (
   id: string,
@@ -153,11 +239,12 @@ const mk = (
   image,
   description,
   price: basePrice,
-  weights: jarWeights(basePrice, Math.round(basePrice * 1.9), Math.round(basePrice * 3.6)),
+  weights: buildWeightPrices(basePrice),
   rating: 4.6 + (id.charCodeAt(0) % 4) / 10,
   reviews: 40 + (id.charCodeAt(1) % 120),
   inStock: true,
-  ingredients: "Hand-picked produce, cold-pressed gingelly oil, rock salt, red chilli, mustard, fenugreek, turmeric.",
+  ingredients:
+    "Hand-picked produce, cold-pressed gingelly oil, rock salt, red chilli, mustard, fenugreek, turmeric.",
   shelfLife: "6 months from manufacture; refrigerate after opening for best taste.",
   storage: "Store in a cool dry place. Use a dry spoon. Top with oil if surface dries.",
   ...opts,
@@ -165,56 +252,170 @@ const mk = (
 
 // PICKLES
 const picklesList: Product[] = [
-  ["kothapalli-kobari-avakaya", "Kothapalli Kobari Avakaya", 480, "A coastal twist on Avakaya with fresh coconut and raw mango.", imgKothapalliKobari],
-  ["avakaya", "Avakaya", 450, "The legendary Andhra mango pickle — bold, fiery and oil-rich.", imgAvakaya],
-  ["kakarakaya", "Kakarakaya Pickle", 420, "Bitter gourd pickle, sun-cured to balance heat and tang.", imgKakarakaya],
-  ["pachimirchi", "Pachimirchi Pickle", 410, "Green chilli pickle with a sharp, bright kick.", imgPachimirchi],
+  [
+    "kothapalli-kobari-avakaya",
+    "Kothapalli Kobari Avakaya",
+    480,
+    "A coastal twist on Avakaya with fresh coconut and raw mango.",
+    imgKothapalliKobari,
+  ],
+  [
+    "avakaya",
+    "Avakaya",
+    450,
+    "The legendary Andhra mango pickle — bold, fiery and oil-rich.",
+    imgAvakaya,
+  ],
+  [
+    "kakarakaya",
+    "Kakarakaya Pickle",
+    420,
+    "Bitter gourd pickle, sun-cured to balance heat and tang.",
+    imgKakarakaya,
+  ],
+  [
+    "pachimirchi",
+    "Pachimirchi Pickle",
+    410,
+    "Green chilli pickle with a sharp, bright kick.",
+    imgPachimirchi,
+  ],
   ["magaya", "Magaya", 460, "Grated mango pickle — sweet-spicy and family-style.", imgMagaya],
-  ["gongura", "Gongura Pickle", 440, "Sorrel leaves slow-cooked into a tangy Andhra classic.", imgGongura],
-  ["tomato", "Tomato Pickle", 380, "Slow-roasted tomato pickle with a glossy red finish.", imgTomato],
+  [
+    "gongura",
+    "Gongura Pickle",
+    440,
+    "Sorrel leaves slow-cooked into a tangy Andhra classic.",
+    imgGongura,
+  ],
+  [
+    "tomato",
+    "Tomato Pickle",
+    380,
+    "Slow-roasted tomato pickle with a glossy red finish.",
+    imgTomato,
+  ],
   ["usirikaya", "Usirikaya Pickle", 420, "Amla pickle packed with sour brightness.", imgUsirikaya],
-  ["nimmakaya", "Nimmakaya Pickle", 400, "Lemon pickle with the perfect oil-and-spice ratio.", imgNimmakaya],
+  [
+    "nimmakaya",
+    "Nimmakaya Pickle",
+    400,
+    "Lemon pickle with the perfect oil-and-spice ratio.",
+    imgNimmakaya,
+  ],
   ["allam", "Allam Pickle", 430, "Ginger pickle — pungent, warming, deeply aromatic.", imgAllam],
-  ["karivepaku", "Karivepaku Pickle", 410, "Curry leaf pickle, earthy and intensely flavoured.", imgKarivepaku],
-  ["pandu-mirchi", "Pandu Mirchi Pickle", 440, "Ripe red chilli pickle — fiery and unapologetic.", imgPanduMirchi],
-  ["gongura-pandu-mirchi", "Gongura Pandu Mirchi", 470, "Sorrel meets red chilli for double the punch.", imgGonguraPanduMirchi],
-].map(([id, name, p, d, img]) => mk(id as string, name as string, "pickles", img as string, p as number, d as string));
+  [
+    "karivepaku",
+    "Karivepaku Pickle",
+    410,
+    "Curry leaf pickle, earthy and intensely flavoured.",
+    imgKarivepaku,
+  ],
+  [
+    "pandu-mirchi",
+    "Pandu Mirchi Pickle",
+    440,
+    "Ripe red chilli pickle — fiery and unapologetic.",
+    imgPanduMirchi,
+  ],
+  [
+    "gongura-pandu-mirchi",
+    "Gongura Pandu Mirchi",
+    470,
+    "Sorrel meets red chilli for double the punch.",
+    imgGonguraPanduMirchi,
+  ],
+].map(([id, name, p, d, img]) =>
+  mk(id as string, name as string, "pickles", img as string, p as number, d as string),
+);
 
 const kothapalliProduct = picklesList.find((product) => product.id === "kothapalli-kobari-avakaya");
 if (kothapalliProduct) {
   kothapalliProduct.price = 200;
-  kothapalliProduct.weights = jarWeights(200, 350, 700);
+  kothapalliProduct.weights = buildWeightPrices(200);
 }
 
 // NON-VEG
 const nonVegList: Product[] = [
-  ["chicken-boneless", "Chicken Boneless Pickle", 750, "Tender boneless chicken in slow-cooked masala oil.", imgChickenBoneless],
-  ["chicken-bone", "Chicken Pickle", 720, "Traditional bone-in chicken pickle with deep flavour.", imgChickenBone],
+  [
+    "chicken-boneless",
+    "Chicken Boneless Pickle",
+    750,
+    "Tender boneless chicken in slow-cooked masala oil.",
+    imgChickenBoneless,
+  ],
+  [
+    "chicken-bone",
+    "Chicken Pickle",
+    720,
+    "Traditional bone-in chicken pickle with deep flavour.",
+    imgChickenBone,
+  ],
   ["prawn", "Prawns Pickle", 890, "Plump prawns layered with chilli and tamarind.", imgPrawn],
-  ["gongura-prawn", "Gongura Prawn Pickle", 920, "Sorrel-laced prawn pickle — coastal Andhra at its best.", imgGonguraPrawn],
-  ["gongura-chicken", "Gongura Chicken Pickle", 820, "Sorrel and chicken slow-cooked with red chilli.", imgGonguraChicken],
-  ["fish-koramenu", "Fish Koramenu Pickle", 850, "Firm river fish in a robust chilli masala.", imgFishKoramenu],
-  ["fish-pandugappa", "Fish Pandugappa Pickle", 880, "Coastal fish pickle with a clean, savoury heat.", imgFishPandugappa],
-  ["gongura-mutton", "Gongura Mutton Pickle", 980, "Mutton & sorrel — rich, slow and indulgent.", imgGonguraMutton],
-  ["natu-kodi", "Natu Kodi Pickle", 880, "Country chicken pickle with old-world depth.", imgNatuKodi],
-].map(([id, name, p, d, img]) => mk(id as string, name as string, "non-veg-pickles", img as string, p as number, d as string, { badge: "Bestseller" }));
+  [
+    "gongura-prawn",
+    "Gongura Prawn Pickle",
+    920,
+    "Sorrel-laced prawn pickle — coastal Andhra at its best.",
+    imgGonguraPrawn,
+  ],
+  [
+    "gongura-chicken",
+    "Gongura Chicken Pickle",
+    820,
+    "Sorrel and chicken slow-cooked with red chilli.",
+    imgGonguraChicken,
+  ],
+  [
+    "fish-koramenu",
+    "Fish Koramenu Pickle",
+    850,
+    "Firm river fish in a robust chilli masala.",
+    imgFishKoramenu,
+  ],
+  [
+    "fish-pandugappa",
+    "Fish Pandugappa Pickle",
+    880,
+    "Coastal fish pickle with a clean, savoury heat.",
+    imgFishPandugappa,
+  ],
+  [
+    "gongura-mutton",
+    "Gongura Mutton Pickle",
+    980,
+    "Mutton & sorrel — rich, slow and indulgent.",
+    imgGonguraMutton,
+  ],
+  [
+    "natu-kodi",
+    "Natu Kodi Pickle",
+    880,
+    "Country chicken pickle with old-world depth.",
+    imgNatuKodi,
+  ],
+].map(([id, name, p, d, img]) =>
+  mk(id as string, name as string, "non-veg-pickles", img as string, p as number, d as string, {
+    badge: "Bestseller",
+  }),
+);
 
 const chickenBoneless = nonVegList.find((product) => product.id === "chicken-boneless");
 if (chickenBoneless) {
   chickenBoneless.price = 1200;
-  chickenBoneless.weights = jarWeights(1200, 1200, 1200);
+  chickenBoneless.weights = buildWeightPrices(1200);
 }
 
 const chickenPickle = nonVegList.find((product) => product.id === "chicken-bone");
 if (chickenPickle) {
   chickenPickle.price = 1000;
-  chickenPickle.weights = jarWeights(1000, 1000, 1000);
+  chickenPickle.weights = buildWeightPrices(1000);
 }
 
 const prawnPickle = nonVegList.find((product) => product.id === "prawn");
 if (prawnPickle) {
   prawnPickle.price = 1600;
-  prawnPickle.weights = jarWeights(1600, 1600, 1600);
+  prawnPickle.weights = buildWeightPrices(1600);
 }
 
 // VEG PICKLES
@@ -248,8 +449,8 @@ const vegList: Product[] = vegEntries.map(([slug, n, img], i) =>
     380 + ((i * 10) % 120),
     "Traditional Andhra-style " + n.toLowerCase() + " pickle, slow-cured with cold-pressed oil.",
     {
-      weights: jarWeights(150, 300, 600),
-      price: 150,
+      weights: buildWeightPrices(600),
+      price: 600,
     },
   ),
 );
@@ -259,42 +460,176 @@ const podiList: Product[] = [
   ["karapodi", "Karapodi", 650, "Fiery lentil-chilli powder for rice and ghee.", imgKarapodi],
   ["kandipodi", "Kandipodi", 650, "Toor dal podi with garlic and red chilli.", imgKandipodi],
   ["nuvvula-podi", "Nuvvula Podi", 650, "Sesame podi — nutty, rich and warming.", imgNuvvulaPodi],
-  ["karivepaku-podi", "Karivepaku Podi", 650, "Curry leaf podi packed with iron and aroma.", imgKarivepakuPodi],
-  ["masala-karam", "Masala Karam Powder", 650, "All-purpose Andhra masala — your everyday secret.", imgMasalaKaram],
-  ["plain-chilli", "Plain Chilli Powder", 650, "Sun-dried Guntur chillies, stone-ground.", imgPlainChilli],
-  ["sambar-karam", "Sambar Karam", 650, "Hand-blended sambar masala with whole spices.", imgSambarKaram],
-  ["pickle-chilli", "Pickle Chilli Powder", 650, "Coarse pickle-grade chilli for that perfect colour.", imgPickleChilli],
-  ["organic-turmeric", "Organic Turmeric Powder", 500, "High-curcumin turmeric, pesticide-free.", imgOrganicTurmeric],
-].map(([id, name, p, d, img]) => mk(id as string, name as string, "podi", img as string, p as number, d as string, { badge: "With traditional storage jar" }));
+  [
+    "karivepaku-podi",
+    "Karivepaku Podi",
+    650,
+    "Curry leaf podi packed with iron and aroma.",
+    imgKarivepakuPodi,
+  ],
+  [
+    "masala-karam",
+    "Masala Karam Powder",
+    650,
+    "All-purpose Andhra masala — your everyday secret.",
+    imgMasalaKaram,
+  ],
+  [
+    "plain-chilli",
+    "Plain Chilli Powder",
+    650,
+    "Sun-dried Guntur chillies, stone-ground.",
+    imgPlainChilli,
+  ],
+  [
+    "sambar-karam",
+    "Sambar Karam",
+    650,
+    "Hand-blended sambar masala with whole spices.",
+    imgSambarKaram,
+  ],
+  [
+    "pickle-chilli",
+    "Pickle Chilli Powder",
+    650,
+    "Coarse pickle-grade chilli for that perfect colour.",
+    imgPickleChilli,
+  ],
+  [
+    "organic-turmeric",
+    "Organic Turmeric Powder",
+    500,
+    "High-curcumin turmeric, pesticide-free.",
+    imgOrganicTurmeric,
+  ],
+].map(([id, name, p, d, img]) =>
+  mk(id as string, name as string, "podi", img as string, p as number, d as string, {
+    badge: "With traditional storage jar",
+  }),
+);
 
 // SNACKS
 const snacksList: Product[] = [
-  ["karapusa", "Homemade Karapusa", 320, "Crisp spiced sev — the perfect tea-time companion.", imgKarapusa],
-  ["chekkalu", "Homemade Chekkalu", 300, "Rice flour crackers with sesame and chilli.", imgChekkalu],
-  ["beetroot-chekkalu", "Beetroot Chekkalu", 340, "A modern twist with deep beetroot colour.", imgBeetrootChekkalu],
+  [
+    "karapusa",
+    "Homemade Karapusa",
+    320,
+    "Crisp spiced sev — the perfect tea-time companion.",
+    imgKarapusa,
+  ],
+  [
+    "chekkalu",
+    "Homemade Chekkalu",
+    300,
+    "Rice flour crackers with sesame and chilli.",
+    imgChekkalu,
+  ],
+  [
+    "beetroot-chekkalu",
+    "Beetroot Chekkalu",
+    340,
+    "A modern twist with deep beetroot colour.",
+    imgBeetrootChekkalu,
+  ],
   ["chegodilu", "Chegodilu", 320, "Crunchy ring-shaped Andhra snack.", imgChegodilu],
-  ["ribbon-pakodi", "Ribbon Pakodi", 310, "Ribbon-thin gram flour snack, crisp and spicy.", imgRibbonPakodi],
+  [
+    "ribbon-pakodi",
+    "Ribbon Pakodi",
+    310,
+    "Ribbon-thin gram flour snack, crisp and spicy.",
+    imgRibbonPakodi,
+  ],
   ["cashew-fry", "Cashew Fry", 690, "Premium roasted cashews in a delicate masala.", imgCashewFry],
-  ["cashew-badam", "Cashew & Badam Mixture", 720, "Festive dry-fruit mixture — rich and aromatic.", imgCashewBadam],
+  [
+    "cashew-badam",
+    "Cashew & Badam Mixture",
+    720,
+    "Festive dry-fruit mixture — rich and aromatic.",
+    imgCashewBadam,
+  ],
   ["boondi", "Boondi", 280, "Tiny crisp gram flour pearls.", imgBoondi],
-].map(([id, name, p, d, img]) => mk(id as string, name as string, "snacks", img as string, p as number, d as string));
+].map(([id, name, p, d, img]) =>
+  mk(id as string, name as string, "snacks", img as string, p as number, d as string),
+);
 
 // SWEETS
 const sweetsList: Product[] = [
-  ["dry-fruit-laddu", "Dry Fruit Laddu", 780, "No-sugar laddu bound with dates and ghee.", imgDryFruitLaddu],
-  ["dry-fruit-mix", "Dry Fruit Mix", 820, "Curated mix of nuts, raisins and seeds.", imgDryFruitMix],
-  ["athreyapuram-potharekulu", "Athreyapuram Potharekulu", 540, "The famed paper-thin sweet from Athreyapuram.", imgAthreyapuram],
-  ["bellam-potharekulu", "Bellam Potharekulu", 520, "Jaggery-filled potharekulu — wholesome and rich.", imgBellamPotharekulu],
-  ["sunnivundalu", "Special Sunnivundalu", 560, "Roasted gram laddu with ghee and cardamom.", imgSunnivundalu],
-  ["mamidi-tandra", "Mamidi Tandra", 480, "Sun-dried mango fruit leather, naturally sweet.", imgMamidiTandra],
+  [
+    "dry-fruit-laddu",
+    "Dry Fruit Laddu",
+    780,
+    "No-sugar laddu bound with dates and ghee.",
+    imgDryFruitLaddu,
+  ],
+  [
+    "dry-fruit-mix",
+    "Dry Fruit Mix",
+    820,
+    "Curated mix of nuts, raisins and seeds.",
+    imgDryFruitMix,
+  ],
+  [
+    "athreyapuram-potharekulu",
+    "Athreyapuram Potharekulu",
+    540,
+    "The famed paper-thin sweet from Athreyapuram.",
+    imgAthreyapuram,
+  ],
+  [
+    "bellam-potharekulu",
+    "Bellam Potharekulu",
+    520,
+    "Jaggery-filled potharekulu — wholesome and rich.",
+    imgBellamPotharekulu,
+  ],
+  [
+    "sunnivundalu",
+    "Special Sunnivundalu",
+    560,
+    "Roasted gram laddu with ghee and cardamom.",
+    imgSunnivundalu,
+  ],
+  [
+    "mamidi-tandra",
+    "Mamidi Tandra",
+    480,
+    "Sun-dried mango fruit leather, naturally sweet.",
+    imgMamidiTandra,
+  ],
   ["cashew-chikki", "Cashew Chikki", 620, "Crunchy cashew-jaggery brittle.", imgCashewChikki],
-  ["palli-chikki", "Palli Chikki", 360, "Peanut jaggery chikki — a childhood favourite.", imgPalliChikki],
-  ["madugula-halwa", "Madugula Special Halwa", 720, "Slow-cooked traditional halwa from Madugula.", imgMadugulaHalwa],
+  [
+    "palli-chikki",
+    "Palli Chikki",
+    360,
+    "Peanut jaggery chikki — a childhood favourite.",
+    imgPalliChikki,
+  ],
+  [
+    "madugula-halwa",
+    "Madugula Special Halwa",
+    720,
+    "Slow-cooked traditional halwa from Madugula.",
+    imgMadugulaHalwa,
+  ],
   ["ariselu", "Ariselu", 540, "Jaggery-rice festive sweet, fried in ghee.", imgAriselu],
   ["nethi-ariselu", "Nethi Ariselu", 580, "Ghee-laden ariselu — extra rich.", imgNethiAriselu],
-  ["bellam-gavvalu", "Bellam Gavvalu", 460, "Shell-shaped jaggery sweet, crisp inside.", imgBellamGavvalu],
-  ["malai-poori", "Special Malai Poori", 560, "Sweetened cream poori — melts in the mouth.", imgMalaiPoori],
-].map(([id, name, p, d, img]) => mk(id as string, name as string, "sweets", img as string, p as number, d as string));
+  [
+    "bellam-gavvalu",
+    "Bellam Gavvalu",
+    460,
+    "Shell-shaped jaggery sweet, crisp inside.",
+    imgBellamGavvalu,
+  ],
+  [
+    "malai-poori",
+    "Special Malai Poori",
+    560,
+    "Sweetened cream poori — melts in the mouth.",
+    imgMalaiPoori,
+  ],
+].map(([id, name, p, d, img]) =>
+  mk(id as string, name as string, "sweets", img as string, p as number, d as string),
+);
 
 // VADIYALU
 const vadiyaluList: Product[] = [
@@ -304,17 +639,30 @@ const vadiyaluList: Product[] = [
   ["saggu-biyyam", "Saggu Biyyam Vadiyalu", 340, imgSagguBiyyam],
   ["minapa", "Minapa Vadiyalu", 380, imgMinapa],
   ["appada-puvvulu", "Appada Puvvulu", 360, imgAppadaPuvvulu],
-].map(([id, name, p, img]) => mk("vad-" + (id as string), name as string, "vadiyalu", img as string, p as number, "Sun-dried under Andhra skies, ready to fry to a perfect crisp."));
+].map(([id, name, p, img]) =>
+  mk(
+    "vad-" + (id as string),
+    name as string,
+    "vadiyalu",
+    img as string,
+    p as number,
+    "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
+  ),
+);
 
 // PAPADS
 const papadsList: Product[] = [
   {
-    ...mk("papad-100", "Annapurna Papad", "papads", imgPapad, 25, "Hand-rolled, sun-dried papads. Crisp, golden, and full of flavour."),
-    weights: [
-      { label: "100 g", grams: 100, price: 25 },
-      { label: "250 g", grams: 250, price: 60 },
-    ],
-    price: 25,
+    ...mk(
+      "papad-100",
+      "Annapurna Papad",
+      "papads",
+      imgPapad,
+      240,
+      "Hand-rolled, sun-dried papads. Crisp, golden, and full of flavour.",
+    ),
+    weights: buildWeightPrices(240),
+    price: 240,
   },
 ];
 
@@ -329,12 +677,20 @@ export const products: Product[] = [
   ...papadsList,
 ];
 
-export const getProductsByCategory = (slug: string) =>
-  products.filter((p) => p.category === slug);
+export const getProductsByCategory = (slug: string) => products.filter((p) => p.category === slug);
 
 export const getProduct = (id: string) => products.find((p) => p.id === id);
 
 export const featuredProducts = (): Product[] => {
-  const picks = ["avakaya", "gongura-prawn", "masala-karam", "dry-fruit-laddu", "karapusa", "vad-minapa", "papad-100", "kothapalli-kobari-avakaya"];
+  const picks = [
+    "avakaya",
+    "gongura-prawn",
+    "masala-karam",
+    "dry-fruit-laddu",
+    "karapusa",
+    "vad-minapa",
+    "papad-100",
+    "kothapalli-kobari-avakaya",
+  ];
   return picks.map((id) => products.find((p) => p.id === id)!).filter(Boolean);
 };

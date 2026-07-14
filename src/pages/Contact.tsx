@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { Clock, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Send, Youtube } from "lucide-react";
+import {
+  Clock,
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Send,
+  Youtube,
+} from "lucide-react";
 import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
 function openWhatsApp() {
@@ -46,11 +56,35 @@ export default function Contact() {
           </button>
 
           {[
-            { i: Phone, t: "Call us", v: "+91 98000 12345", h: "tel:+919800012345", isWhatsApp: false },
+            {
+              i: Phone,
+              t: "Call us",
+              v: "+91 98000 12345",
+              h: "tel:+919800012345",
+              isWhatsApp: false,
+            },
             { i: MessageCircle, t: "WhatsApp", v: WHATSAPP_DISPLAY, h: waLink(), isWhatsApp: true },
-            { i: Mail, t: "Email", v: "hello@annapurnafoods.in", h: "mailto:hello@annapurnafoods.in", isWhatsApp: false },
-            { i: MapPin, t: "Address", v: "Annapurna House, Vijayawada, Andhra Pradesh 520010", h: "#", isWhatsApp: false },
-            { i: Clock, t: "Business Hours", v: "Mon — Sat · 9:00 AM to 7:00 PM", h: "#", isWhatsApp: false },
+            {
+              i: Mail,
+              t: "Email",
+              v: "hello@annapurnafoods.in",
+              h: "mailto:hello@annapurnafoods.in",
+              isWhatsApp: false,
+            },
+            {
+              i: MapPin,
+              t: "Address",
+              v: "Annapurna House, Vijayawada, Andhra Pradesh 520010",
+              h: "#",
+              isWhatsApp: false,
+            },
+            {
+              i: Clock,
+              t: "Business Hours",
+              v: "Mon — Sat · 9:00 AM to 7:00 PM",
+              h: "#",
+              isWhatsApp: false,
+            },
           ].map((c) => {
             if (c.isWhatsApp) {
               return (
@@ -64,7 +98,9 @@ export default function Contact() {
                     <c.i className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs uppercase tracking-widest text-muted-foreground">{c.t}</div>
+                    <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                      {c.t}
+                    </div>
                     <div className="mt-1 font-semibold">{c.v}</div>
                   </div>
                 </button>
@@ -80,7 +116,9 @@ export default function Contact() {
                   <c.i className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">{c.t}</div>
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                    {c.t}
+                  </div>
                   <div className="mt-1 font-semibold">{c.v}</div>
                 </div>
               </a>
@@ -89,7 +127,11 @@ export default function Contact() {
 
           <div className="flex gap-2 mt-2">
             {[Facebook, Instagram, Youtube].map((I, i) => (
-              <a key={i} href="#" className="grid h-11 w-11 place-items-center rounded-full bg-card shadow-soft hover:bg-primary hover:text-primary-foreground transition">
+              <a
+                key={i}
+                href="#"
+                className="grid h-11 w-11 place-items-center rounded-full bg-card shadow-soft hover:bg-primary hover:text-primary-foreground transition"
+              >
                 <I className="h-4 w-4" />
               </a>
             ))}
@@ -106,11 +148,16 @@ export default function Contact() {
 
         {/* Form */}
         <form
-          onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSent(true);
+          }}
           className="rounded-[28px] bg-card p-6 md:p-8 shadow-card border border-border/60"
         >
           <h2 className="font-display text-3xl">Send us a message</h2>
-          <p className="mt-1 text-sm text-muted-foreground">We typically reply within a few hours.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            We typically reply within a few hours.
+          </p>
 
           <div className="mt-6 grid sm:grid-cols-2 gap-4">
             <Field label="Your name" name="name" required />
@@ -119,7 +166,9 @@ export default function Contact() {
             <Field label="Subject" name="subject" />
           </div>
           <div className="mt-4">
-            <label className="text-xs uppercase tracking-widest text-muted-foreground">Message</label>
+            <label className="text-xs uppercase tracking-widest text-muted-foreground">
+              Message
+            </label>
             <textarea
               rows={5}
               required
@@ -130,14 +179,26 @@ export default function Contact() {
           <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-gold hover:text-gold-foreground transition">
             <Send className="h-4 w-4" /> Send Message
           </button>
-          {sent && <p className="mt-4 text-sm text-primary">Thank you! We'll get back to you shortly.</p>}
+          {sent && (
+            <p className="mt-4 text-sm text-primary">Thank you! We'll get back to you shortly.</p>
+          )}
         </form>
       </section>
     </div>
   );
 }
 
-function Field({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
+function Field({
+  label,
+  name,
+  type = "text",
+  required,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+}) {
   return (
     <label className="block">
       <span className="text-xs uppercase tracking-widest text-muted-foreground">{label}</span>

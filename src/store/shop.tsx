@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { Product } from "@/data/products";
+import { getWeightPrice, type Product, type WeightLabel } from "@/data/products";
 
 export type CartItem = {
   productId: string;
@@ -38,7 +38,9 @@ export function ShopProvider({ children }: { children: ReactNode }) {
       const w = localStorage.getItem(LS_WISH);
       if (c) setCart(JSON.parse(c));
       if (w) setWishlist(JSON.parse(w));
-    } catch {}
+    } catch (error) {
+      console.warn("Failed to hydrate shop storage", error);
+    }
     setHydrated(true);
   }, []);
 
@@ -51,15 +53,16 @@ export function ShopProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<ShopState>(() => {
     const addToCart: ShopState["addToCart"] = (p, weightLabel, qty = 1) => {
-      const w = p.weights.find((w) => w.label === weightLabel) ?? p.weights[0];
+      const label = (weightLabel as WeightLabel | undefined) ?? "250g";
+      const price = getWeightPrice(p, label);
       setCart((prev) => {
-        const i = prev.findIndex((it) => it.productId === p.id && it.weightLabel === w.label);
+        const i = prev.findIndex((it) => it.productId === p.id && it.weightLabel === label);
         if (i >= 0) {
           const next = [...prev];
-          next[i] = { ...next[i], qty: next[i].qty + qty };
+          next[i] = { ...next[i], qty: next[i].qty + qty, price: price };
           return next;
         }
-        return [...prev, { productId: p.id, weightLabel: w.label, price: w.price, qty, product: p }];
+        return [...prev, { productId: p.id, weightLabel: label, price, qty, product: p }];
       });
     };
     return {

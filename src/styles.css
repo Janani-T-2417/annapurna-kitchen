@@ -44,8 +44,8 @@
   --font-display: "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-soft: 0 10px 30px -10px color-mix(in oklab, #0D7A52 18%, transparent);
-  --shadow-gold: 0 12px 40px -12px color-mix(in oklab, #D4AF37 35%, transparent);
+  --shadow-soft: 0 10px 30px -10px color-mix(in oklab, #0d7a52 18%, transparent);
+  --shadow-gold: 0 12px 40px -12px color-mix(in oklab, #d4af37 35%, transparent);
   --shadow-card: 0 8px 24px -12px color-mix(in oklab, #6b4f2a 18%, transparent);
 }
 
@@ -53,23 +53,23 @@
   --radius: 1.25rem; /* 20px */
 
   /* Brand */
-  --background: oklch(0.985 0.015 75);   /* #FFF8F0 cream */
-  --foreground: oklch(0.22 0.03 60);      /* deep warm charcoal */
+  --background: oklch(0.985 0.015 75); /* #FFF8F0 cream */
+  --foreground: oklch(0.22 0.03 60); /* deep warm charcoal */
   --cream: oklch(0.985 0.015 75);
-  --warm: oklch(0.98 0.008 80);           /* #FAF9F6 warm white */
-  --beige: oklch(0.94 0.04 80);           /* #F5E8D0 light beige */
-  --saffron: oklch(0.85 0.13 70);         /* #F9C784 */
-  --brand-red: oklch(0.52 0.18 28);       /* #B83232 */
+  --warm: oklch(0.98 0.008 80); /* #FAF9F6 warm white */
+  --beige: oklch(0.94 0.04 80); /* #F5E8D0 light beige */
+  --saffron: oklch(0.85 0.13 70); /* #F9C784 */
+  --brand-red: oklch(0.52 0.18 28); /* #B83232 */
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.22 0.03 60);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0.03 60);
 
-  --primary: oklch(0.48 0.12 158);        /* #0D7A52 green */
+  --primary: oklch(0.48 0.12 158); /* #0D7A52 green */
   --primary-foreground: oklch(0.985 0.015 75);
 
-  --gold: oklch(0.78 0.13 85);            /* #D4AF37 */
+  --gold: oklch(0.78 0.13 85); /* #D4AF37 */
   --gold-foreground: oklch(0.22 0.03 60);
 
   --secondary: oklch(0.94 0.04 80);
@@ -103,7 +103,11 @@
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4, .font-display {
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
@@ -123,7 +127,9 @@
 }
 
 @utility hover-lift {
-  transition: transform 350ms cubic-bezier(.2,.7,.2,1), box-shadow 350ms;
+  transition:
+    transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 350ms;
   &:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-card);
@@ -144,18 +150,39 @@
 /* Decorative paisley/spice background */
 @utility spice-bg {
   background:
-    radial-gradient(800px 400px at 10% 0%, color-mix(in oklab, #F9C784 22%, transparent), transparent 60%),
-    radial-gradient(700px 380px at 90% 20%, color-mix(in oklab, #0D7A52 10%, transparent), transparent 60%),
-    radial-gradient(600px 360px at 50% 100%, color-mix(in oklab, #D4AF37 14%, transparent), transparent 60%),
+    radial-gradient(
+      800px 400px at 10% 0%,
+      color-mix(in oklab, #f9c784 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 380px at 90% 20%,
+      color-mix(in oklab, #0d7a52 10%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      600px 360px at 50% 100%,
+      color-mix(in oklab, #d4af37 14%, transparent),
+      transparent 60%
+    ),
     var(--color-background);
 }
 
 @keyframes floaty {
-  0%,100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-18px) rotate(6deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-18px) rotate(6deg);
+  }
 }
-.float-slow { animation: floaty 9s ease-in-out infinite; }
-.float-med { animation: floaty 6s ease-in-out infinite; }
+.float-slow {
+  animation: floaty 9s ease-in-out infinite;
+}
+.float-med {
+  animation: floaty 6s ease-in-out infinite;
+}
 
 /* Floating WhatsApp Button */
 .wa-fab {
@@ -165,30 +192,61 @@
   width: 60px;
   height: 60px;
   border-radius: 9999px;
-  background: #25D366;
+  background: #25d366;
   display: grid;
   place-items: center;
-  box-shadow: 0 12px 28px -8px rgba(37, 211, 102, 0.55), 0 6px 14px rgba(0,0,0,0.18);
+  box-shadow:
+    0 12px 28px -8px rgba(37, 211, 102, 0.55),
+    0 6px 14px rgba(0, 0, 0, 0.18);
   z-index: 9999;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
-.wa-fab:hover { transform: scale(1.08); box-shadow: 0 16px 36px -8px rgba(37,211,102,0.7), 0 8px 18px rgba(0,0,0,0.22); }
-.wa-fab__icon { width: 34px; height: 34px; position: relative; z-index: 1; }
+.wa-fab:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 16px 36px -8px rgba(37, 211, 102, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.22);
+}
+.wa-fab__icon {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  z-index: 1;
+}
 .wa-fab__pulse {
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  background: #25D366;
+  background: #25d366;
   opacity: 0.55;
   animation: waPulse 2.4s ease-out infinite;
   z-index: 0;
 }
 @keyframes waPulse {
-  0% { transform: scale(1); opacity: 0.55; }
-  80% { transform: scale(1.7); opacity: 0; }
-  100% { transform: scale(1.7); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  80% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
 }
 @media (max-width: 480px) {
-  .wa-fab { width: 56px; height: 56px; bottom: 18px; right: 18px; }
-  .wa-fab__icon { width: 30px; height: 30px; }
+  .wa-fab {
+    width: 56px;
+    height: 56px;
+    bottom: 18px;
+    right: 18px;
+  }
+  .wa-fab__icon {
+    width: 30px;
+    height: 30px;
+  }
 }

@@ -19,7 +19,9 @@ export function Footer() {
             <img src={logo} alt="" className="h-14 w-14 rounded-full ring-1 ring-gold/40" />
             <div>
               <div className="font-display text-xl text-primary">Annapurna Foods</div>
-              <div className="text-[10px] tracking-[0.25em] uppercase gold-text">The Goddess Of Food</div>
+              <div className="text-[10px] tracking-[0.25em] uppercase gold-text">
+                The Goddess Of Food
+              </div>
             </div>
           </div>
           <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
@@ -45,7 +47,9 @@ export function Footer() {
           <ul className="grid gap-2 text-sm text-muted-foreground">
             {categories.map((c) => (
               <li key={c.slug}>
-                <Link to={`/category/${c.slug}`} className="hover:text-primary">{c.name}</Link>
+                <Link to={`/category/${c.slug}`} className="hover:text-primary">
+                  {c.name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -54,21 +58,55 @@ export function Footer() {
         <div>
           <h4 className="font-display text-lg mb-4">Quick Links</h4>
           <ul className="grid gap-2 text-sm text-muted-foreground">
-            <li><Link to="/" className="hover:text-primary">Home</Link></li>
-            <li><Link to="/about" className="hover:text-primary">About Us</Link></li>
-            <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
-            <li><Link to="/cart" className="hover:text-primary">Cart</Link></li>
-            <li><Link to="/wishlist" className="hover:text-primary">Wishlist</Link></li>
-            <li><a href="#faq" className="hover:text-primary">FAQ</a></li>
-            <li><a href="#" className="hover:text-primary">Shipping Policy</a></li>
-            <li><a href="#" className="hover:text-primary">Returns</a></li>
+            <li>
+              <Link to="/" className="hover:text-primary">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/about" className="hover:text-primary">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-primary">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link to="/cart" className="hover:text-primary">
+                Cart
+              </Link>
+            </li>
+            <li>
+              <Link to="/wishlist" className="hover:text-primary">
+                Wishlist
+              </Link>
+            </li>
+            <li>
+              <a href="#faq" className="hover:text-primary">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary">
+                Shipping Policy
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary">
+                Returns
+              </a>
+            </li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-display text-lg mb-4">Get in Touch</h4>
           <ul className="grid gap-3 text-sm text-muted-foreground">
-            <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-primary" /> +91 98000 12345</li>
+            <li className="flex items-start gap-2">
+              <Phone className="h-4 w-4 mt-0.5 text-primary" /> +91 98000 12345
+            </li>
             <li>
               <button
                 onClick={openWhatsApp}
@@ -76,15 +114,22 @@ export function Footer() {
                 className="flex items-start gap-2 hover:text-primary text-left"
                 title="Chat with us on WhatsApp"
               >
-                <MessageCircle className="h-4 w-4 mt-0.5 text-[#25D366]" /> WhatsApp: {WHATSAPP_DISPLAY}
+                <MessageCircle className="h-4 w-4 mt-0.5 text-[#25D366]" /> WhatsApp:{" "}
+                {WHATSAPP_DISPLAY}
               </button>
             </li>
-            <li className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary" /> hello@annapurnafoods.in</li>
-            <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary" /> Vijayawada, Andhra Pradesh, India</li>
+            <li className="flex items-start gap-2">
+              <Mail className="h-4 w-4 mt-0.5 text-primary" /> hello@annapurnafoods.in
+            </li>
+            <li className="flex items-start gap-2">
+              <MapPin className="h-4 w-4 mt-0.5 text-primary" /> Vijayawada, Andhra Pradesh, India
+            </li>
           </ul>
 
           <div className="mt-5">
-            <label className="text-xs uppercase tracking-widest text-muted-foreground">Newsletter</label>
+            <label className="text-xs uppercase tracking-widest text-muted-foreground">
+              Newsletter
+            </label>
             <form
               onSubmit={(e) => e.preventDefault()}
               className="mt-2 flex items-center gap-2 rounded-full bg-white p-1 shadow-soft"

@@ -3,14 +3,13 @@ import NotFound from "./NotFound";
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
-import { categories, getProductsByCategory } from "@/data/products";
+import { categories, getProductsByCategory, getWeightPrice } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
-
 
 // Deterministic pseudo-random for floating particle positions
 const particles = Array.from({ length: 14 }).map((_, i) => ({
-  left: ((i * 73) % 100),
-  top: ((i * 47) % 100),
+  left: (i * 73) % 100,
+  top: (i * 47) % 100,
   size: 6 + ((i * 11) % 14),
   delay: (i % 7) * 0.4,
   dur: 7 + (i % 5),
@@ -19,18 +18,21 @@ const particles = Array.from({ length: 14 }).map((_, i) => ({
 export default function Category() {
   const { slug } = useParams();
   const cat = categories.find((c) => c.slug === slug);
-  if (!cat) return <NotFound />;
-
-  const all = getProductsByCategory(cat.slug);
   const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc" | "rating">("featured");
+
+  const all = useMemo(() => (cat ? getProductsByCategory(cat.slug) : []), [cat]);
 
   const products = useMemo(() => {
     const list = [...all];
-    if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
-    if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
+    if (sort === "price-asc")
+      list.sort((a, b) => getWeightPrice(a, "250g") - getWeightPrice(b, "250g"));
+    if (sort === "price-desc")
+      list.sort((a, b) => getWeightPrice(b, "250g") - getWeightPrice(a, "250g"));
     if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
     return list;
   }, [all, sort]);
+
+  if (!cat) return <NotFound />;
 
   return (
     <div>
@@ -41,11 +43,7 @@ export default function Category() {
       >
         {/* Background image */}
         <div className="absolute inset-0">
-          <img
-            src={cat.hero}
-            alt=""
-            className="h-full w-full object-cover scale-105"
-          />
+          <img src={cat.hero} alt="" className="h-full w-full object-cover scale-105" />
         </div>
 
         {/* Rich opaque color overlay (per-category) */}
@@ -82,13 +80,18 @@ export default function Category() {
         </div>
 
         {/* Content */}
-        <div className="relative container-x flex flex-col justify-center py-16 md:py-24 min-h-[inherit]" style={{ minHeight: "clamp(420px, 56vw, 500px)" }}>
+        <div
+          className="relative container-x flex flex-col justify-center py-16 md:py-24 min-h-[inherit]"
+          style={{ minHeight: "clamp(420px, 56vw, 500px)" }}
+        >
           <motion.nav
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-1.5 text-xs text-white/85 mb-5"
           >
-            <Link to="/" className="hover:text-gold transition">Home</Link>
+            <Link to="/" className="hover:text-gold transition">
+              Home
+            </Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-gold font-semibold">{cat.name}</span>
           </motion.nav>

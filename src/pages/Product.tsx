@@ -2,13 +2,33 @@ import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { BadgeCheck, ChevronRight, Heart, Leaf, Minus, PackageCheck, Plus, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
-import { categories, getProduct, getProductsByCategory, type Product } from "@/data/products";
+import {
+  BadgeCheck,
+  ChevronRight,
+  Heart,
+  Leaf,
+  Minus,
+  PackageCheck,
+  Plus,
+  ShieldCheck,
+  ShoppingBag,
+  Star,
+  Truck,
+} from "lucide-react";
+import {
+  categories,
+  getDefaultWeightLabel,
+  getProduct,
+  getProductsByCategory,
+  getWeightOptions,
+  getWeightPrice,
+  type Product,
+  type WeightLabel,
+} from "@/data/products";
 import { useShop } from "@/store/shop";
 import { ProductCard } from "@/components/site/ProductCard";
 import { waLink, waProductMessage } from "@/config/whatsapp";
 
-type Weight = Product["weights"][number];
 import { cn } from "@/lib/utils";
 
 function openWhatsApp(message: string) {
@@ -20,25 +40,40 @@ function openWhatsApp(message: string) {
 export default function Product() {
   const { id } = useParams();
   const product = getProduct(id!);
-  if (!product) return <NotFound />;
-  const cat = categories.find((c) => c.slug === product.category);
+  const cat = categories.find((c) => c.slug === product?.category);
   const { addToCart, toggleWishlist, inWishlist } = useShop();
-  const [weight, setWeight] = useState(product.weights[0].label);
+  const [weight, setWeight] = useState<WeightLabel>(() =>
+    product ? getDefaultWeightLabel(product) : "250g",
+  );
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
-  const w = product.weights.find((x: Weight) => x.label === weight) ?? product.weights[0];
+  const weightOptions = product ? getWeightOptions(product) : [];
+  const selectedWeight = weightOptions.find((option) => option.label === weight) ??
+    weightOptions[0] ?? {
+      label: "250g" as WeightLabel,
+      grams: 250,
+      price: 0,
+    };
 
-  const related = getProductsByCategory(product.category).filter((p) => p.id !== product.id).slice(0, 4);
+  if (!product) return <NotFound />;
+
+  const related = getProductsByCategory(product.category)
+    .filter((p) => p.id !== product.id)
+    .slice(0, 4);
 
   return (
     <div>
       <div className="container-x pt-8">
         <nav className="flex items-center gap-1 text-xs text-muted-foreground">
-          <Link to="/" className="hover:text-primary">Home</Link>
+          <Link to="/" className="hover:text-primary">
+            Home
+          </Link>
           <ChevronRight className="h-3 w-3" />
           {cat && (
             <>
-              <Link to={`/category/${cat.slug}`} className="hover:text-primary">{cat.name}</Link>
+              <Link to={`/category/${cat.slug}`} className="hover:text-primary">
+                {cat.name}
+              </Link>
               <ChevronRight className="h-3 w-3" />
             </>
           )}
@@ -72,7 +107,10 @@ export default function Product() {
           </motion.div>
           <div className="mt-4 grid grid-cols-4 gap-3">
             {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="aspect-square rounded-xl overflow-hidden border border-border bg-card">
+              <div
+                key={i}
+                className="aspect-square rounded-xl overflow-hidden border border-border bg-card"
+              >
                 <img src={product.image} alt="" className="h-full w-full object-cover" />
               </div>
             ))}
@@ -86,27 +124,41 @@ export default function Product() {
           <div className="mt-3 flex items-center gap-2">
             <div className="flex items-center gap-0.5 text-gold">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-4 w-4" fill={i < Math.round(product.rating) ? "currentColor" : "none"} />
+                <Star
+                  key={i}
+                  className="h-4 w-4"
+                  fill={i < Math.round(product.rating) ? "currentColor" : "none"}
+                />
               ))}
             </div>
-            <span className="text-sm text-muted-foreground">{product.rating.toFixed(1)} · {product.reviews} reviews</span>
+            <span className="text-sm text-muted-foreground">
+              {product.rating.toFixed(1)} · {product.reviews} reviews
+            </span>
           </div>
           <p className="mt-4 text-foreground/80 leading-relaxed">{product.description}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <div className="rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              <span className="inline-flex items-center gap-1.5"><PackageCheck className="h-3.5 w-3.5" /> Premium Jar Packaging</span>
+              <span className="inline-flex items-center gap-1.5">
+                <PackageCheck className="h-3.5 w-3.5" /> Premium Jar Packaging
+              </span>
             </div>
             <div className="rounded-full bg-gold/20 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-foreground/80">
-              <span className="inline-flex items-center gap-1.5"><Leaf className="h-3.5 w-3.5" /> Natural Ingredients</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Leaf className="h-3.5 w-3.5" /> Natural Ingredients
+              </span>
             </div>
           </div>
 
           <div className="mt-6 rounded-[24px] border border-primary/10 bg-card p-5 shadow-soft">
-            <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Price</div>
+            <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+              Price
+            </div>
             <div className="mt-2 flex items-end gap-3">
-              <div className="font-display text-4xl text-primary">₹{w.price}</div>
-              <div className="text-sm text-muted-foreground">/ {w.label} · incl. taxes</div>
+              <div className="font-display text-4xl text-primary">₹{selectedWeight.price}</div>
+              <div className="text-sm text-muted-foreground">
+                / {selectedWeight.label} · incl. taxes
+              </div>
             </div>
             <div className="mt-3 flex items-center gap-2 text-sm text-primary">
               <PackageCheck className="h-4 w-4" /> Freshly Packed in Premium Jar
@@ -127,9 +179,11 @@ export default function Product() {
           </div>
 
           <div className="mt-6">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Weight Options</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
+              Weight Options
+            </p>
             <div className="flex flex-wrap gap-2">
-              {product.weights.map((opt: Weight) => (
+              {weightOptions.map((opt) => (
                 <button
                   key={opt.label}
                   onClick={() => setWeight(opt.label)}
@@ -148,11 +202,17 @@ export default function Product() {
 
           <div className="mt-6 flex items-center gap-4">
             <div className="flex items-center rounded-full border border-border bg-warm">
-              <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="grid h-11 w-11 place-items-center hover:text-primary">
+              <button
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+                className="grid h-11 w-11 place-items-center hover:text-primary"
+              >
                 <Minus className="h-4 w-4" />
               </button>
               <span className="w-10 text-center font-semibold">{qty}</span>
-              <button onClick={() => setQty((q) => q + 1)} className="grid h-11 w-11 place-items-center hover:text-primary">
+              <button
+                onClick={() => setQty((q) => q + 1)}
+                className="grid h-11 w-11 place-items-center hover:text-primary"
+              >
                 <Plus className="h-4 w-4" />
               </button>
             </div>
@@ -182,7 +242,9 @@ export default function Product() {
           </div>
 
           <button
-            onClick={() => openWhatsApp(waProductMessage(product.name))}
+            onClick={() =>
+              openWhatsApp(waProductMessage(product.name, weight, getWeightPrice(product, weight)))
+            }
             type="button"
             title={`Order ${product.name} on WhatsApp`}
             className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#25D366] px-6 py-4 text-base font-semibold text-white shadow-[0_10px_24px_-8px_rgba(37,211,102,0.5)] hover:bg-[#1da851] hover:scale-[1.01] transition"
@@ -192,7 +254,6 @@ export default function Product() {
             </svg>
             Order on WhatsApp
           </button>
-
 
           <div className="mt-8 grid sm:grid-cols-3 gap-3 text-sm">
             {[
@@ -230,7 +291,9 @@ export default function Product() {
         <section className="container-x section-pad">
           <h2 className="font-display text-3xl md:text-4xl">You may also love</h2>
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {related.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+            {related.map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
           </div>
         </section>
       )}

@@ -32,22 +32,33 @@ export function Navbar() {
     <header
       className={cn(
         "sticky top-0 z-50 transition-all duration-300",
-        scrolled ? "glass shadow-[0_8px_30px_-12px_rgba(0,0,0,0.08)]" : "bg-background/60 backdrop-blur-sm",
+        scrolled
+          ? "glass shadow-[0_8px_30px_-12px_rgba(0,0,0,0.08)]"
+          : "bg-background/60 backdrop-blur-sm",
       )}
     >
       <div className="container-x">
         <div className="flex items-center justify-between gap-4 py-3">
           <Link to="/" className="flex items-center gap-3 shrink-0">
-            <img src={logo} alt="Annapurna Foods" className="h-12 w-12 rounded-full ring-1 ring-gold/40" />
+            <img
+              src={logo}
+              alt="Annapurna Foods"
+              className="h-12 w-12 rounded-full ring-1 ring-gold/40"
+            />
             <div className="hidden sm:block leading-tight">
               <div className="font-display text-xl text-primary">Annapurna Foods</div>
-              <div className="text-[10px] uppercase tracking-[0.25em] gold-text">The Goddess Of Food</div>
+              <div className="text-[10px] uppercase tracking-[0.25em] gold-text">
+                The Goddess Of Food
+              </div>
             </div>
           </Link>
 
           {/* Top row icons (desktop) */}
           <div className="flex items-center gap-1 sm:gap-2">
-            <button aria-label="Search" className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-beige/60 transition">
+            <button
+              aria-label="Search"
+              className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-beige/60 transition"
+            >
               <Search className="h-5 w-5" />
             </button>
             <Link
@@ -74,7 +85,10 @@ export function Navbar() {
                 </span>
               )}
             </Link>
-            <button aria-label="Profile" className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-beige/60 transition">
+            <button
+              aria-label="Profile"
+              className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-beige/60 transition"
+            >
               <User className="h-5 w-5" />
             </button>
             <button

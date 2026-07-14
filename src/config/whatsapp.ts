@@ -16,7 +16,7 @@ function validateWhatsAppNumber(number: string): boolean {
   const isValid = /^91\d{10}$/.test(number);
   if (!isValid) {
     console.warn(
-      `[WhatsApp] Invalid number format: "${number}". Expected format: 918179967999 (country code + 10 digits)`
+      `[WhatsApp] Invalid number format: "${number}". Expected format: 918179967999 (country code + 10 digits)`,
     );
   }
   return isValid;
@@ -30,9 +30,7 @@ function validateWhatsAppNumber(number: string): boolean {
 export function waLink(message: string = WHATSAPP_DEFAULT_MESSAGE): string {
   // Validate number format
   if (!validateWhatsAppNumber(WHATSAPP_NUMBER)) {
-    console.error(
-      `[WhatsApp] Number validation failed: ${WHATSAPP_NUMBER}. Using default anyway.`
-    );
+    console.error(`[WhatsApp] Number validation failed: ${WHATSAPP_NUMBER}. Using default anyway.`);
   }
 
   // Generate URL using only the phone number (digits only, no +)
@@ -41,7 +39,7 @@ export function waLink(message: string = WHATSAPP_DEFAULT_MESSAGE): string {
   // Log for debugging
   if (process.env.NODE_ENV === "development") {
     console.log(
-      `[WhatsApp] Generated URL: ${url.substring(0, 50)}... (message: "${message.substring(0, 50)}...")`
+      `[WhatsApp] Generated URL: ${url.substring(0, 50)}... (message: "${message.substring(0, 50)}...")`,
     );
   }
 
@@ -53,6 +51,12 @@ export function waLink(message: string = WHATSAPP_DEFAULT_MESSAGE): string {
  * @param productName - Name of the product
  * @returns Formatted message for product order
  */
-export function waProductMessage(productName: string): string {
-  return `Hello Annapurna Foods, I would like to order ${productName}. Please share the details.`;
+export function waProductMessage(
+  productName: string,
+  weightLabel?: string,
+  price?: number,
+): string {
+  const weightText = weightLabel ? ` in ${weightLabel}` : "";
+  const priceText = typeof price === "number" ? ` for ₹${price}` : "";
+  return `Hello Annapurna Foods, I would like to order ${productName}${weightText}${priceText}. Please share the details.`;
 }

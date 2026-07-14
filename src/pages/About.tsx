@@ -26,8 +26,8 @@ export default function About() {
             A taste of <span className="gold-text">Andhra</span>, made with love.
           </h1>
           <p className="mt-5 text-lg text-foreground/70">
-            Annapurna Foods is a family of cooks, farmers and food-lovers
-            keeping coastal Andhra's flavours alive — one homemade jar at a time.
+            Annapurna Foods is a family of cooks, farmers and food-lovers keeping coastal Andhra's
+            flavours alive — one homemade jar at a time.
           </p>
         </div>
       </section>
@@ -37,14 +37,14 @@ export default function About() {
           <div>
             <h2 className="font-display text-4xl">Born in a sunlit kitchen.</h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              It started with a clay pot, a basket of raw mangoes and a recipe scribbled on the
-              back of an almanac. Three generations later, that same recipe travels in glass jars
-              to homes across India — unchanged, uncompromised, and full of love.
+              It started with a clay pot, a basket of raw mangoes and a recipe scribbled on the back
+              of an almanac. Three generations later, that same recipe travels in glass jars to
+              homes across India — unchanged, uncompromised, and full of love.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              We work directly with Andhra farmers, sun-dry our chillies on terrace mats, and
-              press our oils at the village ghani. No shortcuts. No preservatives. Just food the
-              way it was always meant to be.
+              We work directly with Andhra farmers, sun-dry our chillies on terrace mats, and press
+              our oils at the village ghani. No shortcuts. No preservatives. Just food the way it
+              was always meant to be.
             </p>
           </div>
           <motion.div
@@ -57,7 +57,9 @@ export default function About() {
             <div className="relative rounded-[32px] glass p-10 text-center shadow-gold">
               <img src={logo} alt="" className="mx-auto h-48 w-48" />
               <p className="mt-4 font-display text-xl text-primary">The Goddess Of Food</p>
-              <p className="mt-2 text-sm text-muted-foreground">Blessed by tradition, served with love.</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Blessed by tradition, served with love.
+              </p>
             </div>
           </motion.div>
         </div>
