@@ -8,7 +8,11 @@ import { ProductCard } from "@/components/site/ProductCard";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { waLink, WHATSAPP_DEFAULT_MESSAGE } from "@/config/whatsapp";
 
-
+function openWhatsApp() {
+  const url = waLink(WHATSAPP_DEFAULT_MESSAGE);
+  console.log("[Index Page] Opening WhatsApp:", url);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
 
 const trust = [
   { icon: Utensils, label: "100% Homemade" },
@@ -317,9 +321,14 @@ function WholesaleSection() {
                 We offer wholesale pricing for large family groups, resident welfare associations and corporate gifting needs.
               </p>
             </div>
-            <a href={waLink(WHATSAPP_DEFAULT_MESSAGE)} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-gold hover:text-gold-foreground transition">
+            <button
+              onClick={openWhatsApp}
+              type="button"
+              title="Contact us on WhatsApp"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-gold hover:text-gold-foreground transition"
+            >
               <PackageCheck className="h-4 w-4" /> Contact on WhatsApp
-            </a>
+            </button>
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">

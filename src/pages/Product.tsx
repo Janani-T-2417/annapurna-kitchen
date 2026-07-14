@@ -11,7 +11,11 @@ import { waLink, waProductMessage } from "@/config/whatsapp";
 type Weight = Product["weights"][number];
 import { cn } from "@/lib/utils";
 
-
+function openWhatsApp(message: string) {
+  const url = waLink(message);
+  console.log("[Product Page] Opening WhatsApp:", url);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
 
 export default function Product() {
   const { id } = useParams();
@@ -177,17 +181,17 @@ export default function Product() {
             </button>
           </div>
 
-          <a
-            href={waLink(waProductMessage(product.name))}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => openWhatsApp(waProductMessage(product.name))}
+            type="button"
+            title={`Order ${product.name} on WhatsApp`}
             className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#25D366] px-6 py-4 text-base font-semibold text-white shadow-[0_10px_24px_-8px_rgba(37,211,102,0.5)] hover:bg-[#1da851] hover:scale-[1.01] transition"
           >
             <svg viewBox="0 0 32 32" className="h-5 w-5" fill="currentColor" aria-hidden="true">
               <path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.7.888.674 0 2.275-.616 2.59-1.32.156-.345.256-.717.256-1.103 0-.157-.043-.3-.072-.45-.115-.4-1.722-1.137-2.066-1.137zm-2.952 7.21c-5.04 0-9.13-4.092-9.13-9.13 0-5.04 4.09-9.13 9.13-9.13 5.038 0 9.128 4.09 9.128 9.13 0 5.038-4.09 9.13-9.13 9.13zM16.15 4.155c-6.273 0-11.13 5.122-11.13 11.387 0 2.13.66 4.225 1.722 6.034l-2.06 6.246 6.45-2.018a11.18 11.18 0 0 0 5.018 1.214H16.18c6.272 0 11.823-5.122 11.823-11.387 0-3.04-1.466-5.893-3.62-8.048a11.394 11.394 0 0 0-8.232-3.43z" />
             </svg>
             Order on WhatsApp
-          </a>
+          </button>
 
 
           <div className="mt-8 grid sm:grid-cols-3 gap-3 text-sm">

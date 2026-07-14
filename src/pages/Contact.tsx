@@ -2,6 +2,12 @@ import { useState } from "react";
 import { Clock, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone, Send, Youtube } from "lucide-react";
 import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
+function openWhatsApp() {
+  const url = waLink();
+  console.log("[Contact Page] Opening WhatsApp:", url);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
 export default function Contact() {
   const [sent, setSent] = useState(false);
   return (
@@ -18,11 +24,11 @@ export default function Contact() {
         {/* Info */}
         <div className="grid gap-4">
           {/* Featured WhatsApp Card */}
-          <a
-            href={waLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#25D366] to-[#128C7E] p-6 text-white shadow-card hover-lift"
+          <button
+            onClick={openWhatsApp}
+            type="button"
+            title="Chat with us on WhatsApp"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#25D366] to-[#128C7E] p-6 text-white shadow-card hover-lift text-left"
           >
             <div className="flex items-start gap-4">
               <div className="grid h-14 w-14 place-items-center rounded-full bg-white/20 backdrop-blur shrink-0">
@@ -37,25 +43,49 @@ export default function Contact() {
                 </span>
               </div>
             </div>
-          </a>
+          </button>
 
           {[
-            { i: Phone, t: "Call us", v: "+91 98000 12345", h: "tel:+919800012345" },
-            { i: MessageCircle, t: "WhatsApp", v: "+91 98000 12345", h: "https://wa.me/919800012345" },
-            { i: Mail, t: "Email", v: "hello@annapurnafoods.in", h: "mailto:hello@annapurnafoods.in" },
-            { i: MapPin, t: "Address", v: "Annapurna House, Vijayawada, Andhra Pradesh 520010", h: "#" },
-            { i: Clock, t: "Business Hours", v: "Mon — Sat · 9:00 AM to 7:00 PM", h: "#" },
-          ].map((c) => (
-            <a key={c.t} href={c.h} className="flex items-start gap-4 rounded-3xl bg-card p-5 shadow-soft hover-lift">
-              <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary shrink-0">
-                <c.i className="h-5 w-5" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">{c.t}</div>
-                <div className="mt-1 font-semibold">{c.v}</div>
-              </div>
-            </a>
-          ))}
+            { i: Phone, t: "Call us", v: "+91 98000 12345", h: "tel:+919800012345", isWhatsApp: false },
+            { i: MessageCircle, t: "WhatsApp", v: WHATSAPP_DISPLAY, h: waLink(), isWhatsApp: true },
+            { i: Mail, t: "Email", v: "hello@annapurnafoods.in", h: "mailto:hello@annapurnafoods.in", isWhatsApp: false },
+            { i: MapPin, t: "Address", v: "Annapurna House, Vijayawada, Andhra Pradesh 520010", h: "#", isWhatsApp: false },
+            { i: Clock, t: "Business Hours", v: "Mon — Sat · 9:00 AM to 7:00 PM", h: "#", isWhatsApp: false },
+          ].map((c) => {
+            if (c.isWhatsApp) {
+              return (
+                <button
+                  key={c.t}
+                  onClick={openWhatsApp}
+                  type="button"
+                  className="flex items-start gap-4 rounded-3xl bg-card p-5 shadow-soft hover-lift text-left"
+                >
+                  <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary shrink-0">
+                    <c.i className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs uppercase tracking-widest text-muted-foreground">{c.t}</div>
+                    <div className="mt-1 font-semibold">{c.v}</div>
+                  </div>
+                </button>
+              );
+            }
+            return (
+              <a
+                key={c.t}
+                href={c.h}
+                className="flex items-start gap-4 rounded-3xl bg-card p-5 shadow-soft hover-lift"
+              >
+                <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary shrink-0">
+                  <c.i className="h-5 w-5" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground">{c.t}</div>
+                  <div className="mt-1 font-semibold">{c.v}</div>
+                </div>
+              </a>
+            );
+          })}
 
           <div className="flex gap-2 mt-2">
             {[Facebook, Instagram, Youtube].map((I, i) => (

@@ -4,6 +4,12 @@ import logo from "@/assets/logo.png";
 import { categories } from "@/data/products";
 import { WHATSAPP_DISPLAY, waLink } from "@/config/whatsapp";
 
+function openWhatsApp() {
+  const url = waLink();
+  console.log("[Footer] Opening WhatsApp:", url);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
 export function Footer() {
   return (
     <footer className="mt-24 bg-[oklch(0.96_0.02_75)] border-t border-border">
@@ -64,9 +70,14 @@ export function Footer() {
           <ul className="grid gap-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-primary" /> +91 98000 12345</li>
             <li>
-              <a href={waLink()} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 hover:text-primary">
+              <button
+                onClick={openWhatsApp}
+                type="button"
+                className="flex items-start gap-2 hover:text-primary text-left"
+                title="Chat with us on WhatsApp"
+              >
                 <MessageCircle className="h-4 w-4 mt-0.5 text-[#25D366]" /> WhatsApp: {WHATSAPP_DISPLAY}
-              </a>
+              </button>
             </li>
             <li className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-primary" /> hello@annapurnafoods.in</li>
             <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-primary" /> Vijayawada, Andhra Pradesh, India</li>
