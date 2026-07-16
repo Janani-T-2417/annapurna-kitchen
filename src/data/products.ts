@@ -7,6 +7,7 @@ import heroSnacks from "@/assets/hero-snacks.jpg";
 import heroSweets from "@/assets/hero-sweets.jpg";
 import heroVadiyalu from "@/assets/hero-vadiyalu.jpg";
 import heroPapads from "@/assets/hero-papads.jpg";
+import heroHoney from "@/assets/hero-honey.jpg";
 
 // Category tile thumbnails (re-used heroes — they render great as cards too)
 import catPickles from "@/assets/cat-pickles.jpg";
@@ -17,6 +18,8 @@ import catSnacks from "@/assets/cat-snacks.jpg";
 import catSweets from "@/assets/cat-sweets.jpg";
 import catVadiyalu from "@/assets/cat-vadiyalu.jpg";
 import catPapads from "@/assets/cat-papads.jpg";
+import catHoney from "@/assets/cat-honey.jpg";
+import imgPureHoney from "@/assets/p/pure-honey.jpg";
 
 // Product images — one per SKU
 import imgAvakaya from "@/assets/p/avakaya.jpg";
@@ -122,6 +125,8 @@ export type Product = {
   ingredients?: string;
   shelfLife?: string;
   storage?: string;
+  benefits?: string;
+  availableWeights?: WeightLabel[];
 };
 
 export const categories: Category[] = [
