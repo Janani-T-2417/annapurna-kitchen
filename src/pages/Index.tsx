@@ -138,6 +138,7 @@ export default function Index() {
       <Hero />
       <TrustBar />
       <CategoriesSection />
+      <HoneySection />
       <DiscountSection />
       <WholesaleSection />
       <FeaturedSection />
