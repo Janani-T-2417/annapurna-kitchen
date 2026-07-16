@@ -475,6 +475,40 @@ const vegList: Product[] = vegEntries.map(([slug, n, img], i) =>
   ),
 );
 
+const vegPicklePrices: Record<string, { price: number; weights: Record<WeightLabel, number> }> = {
+  avakaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  "kothapalli-kobari-avakaya": {
+    price: 700,
+    weights: { "250g": 200, "500g": 350, "1kg": 700 },
+  },
+  allam: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  tomato: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  magaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  nimmakaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  "pandu-mirchi": { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  "pandu-mirchi-gongura": { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  dhabbakaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  gongura: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  velluli: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  karivepaku: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  munakaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  usirikaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  cauliflower: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  kakarakaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  chinthakaya: { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  "pandu-mirchi-chinthakaya": { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+  "mamidi-allam": { price: 600, weights: { "250g": 150, "500g": 300, "1kg": 600 } },
+};
+
+vegList.forEach((product) => {
+  const slug = product.id.replace(/^veg-/, "");
+  const config = vegPicklePrices[slug];
+  if (config) {
+    product.price = config.price;
+    product.weights = config.weights;
+  }
+});
+
 // PODI
 const podiList: Product[] = [
   ["karapodi", "Karapodi", 650, "Fiery lentil-chilli powder for rice and ghee.", imgKarapodi],
