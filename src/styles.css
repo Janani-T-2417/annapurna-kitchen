@@ -171,17 +171,16 @@
 @keyframes floaty {
   0%,
   100% {
-    transform: translateY(0) rotate(0);
+    transform: none;
   }
   50% {
-    transform: translateY(-18px) rotate(6deg);
+    transform: none;
   }
 }
-.float-slow {
-  animation: floaty 9s ease-in-out infinite;
-}
+.float-slow,
 .float-med {
-  animation: floaty 6s ease-in-out infinite;
+  animation: none !important;
+  transform: none !important;
 }
 
 /* Floating WhatsApp Button */

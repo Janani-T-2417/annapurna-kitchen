@@ -271,13 +271,14 @@ function Hero() {
                   fetchPriority="high"
                   decoding="sync"
                   draggable={false}
-                  className="relative h-72 w-72 sm:h-80 sm:w-80 object-contain rounded-full float-med"
+                  className="relative h-72 w-72 sm:h-80 sm:w-80 object-contain rounded-full animate-none transition-none"
                   style={{
                     imageRendering: "-webkit-optimize-contrast",
                     filter:
                       "contrast(1.08) saturate(1.08) brightness(1.05) drop-shadow(0 6px 14px rgba(0,0,0,0.18)) drop-shadow(0 0 22px rgba(212,175,55,0.45))",
                     backfaceVisibility: "hidden",
-                    transform: "translateZ(0)",
+                    transform: "none",
+                    transition: "none",
                   }}
                 />
               </div>
