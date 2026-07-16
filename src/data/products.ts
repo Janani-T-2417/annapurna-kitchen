@@ -202,6 +202,15 @@ export const categories: Category[] = [
     tagline: "Crisp, golden, hand-rolled",
     gradient: "from-[#1f1405]/90 via-[#7a4a10]/50 to-[#3d1f08]/45",
   },
+  {
+    slug: "honey",
+    name: "Pure Honey",
+    emoji: "🍯",
+    image: catHoney,
+    hero: heroHoney,
+    tagline: "100% pure & unprocessed",
+    gradient: "from-[#3d2405]/85 via-[#b8800f]/55 to-[#D4AF37]/40",
+  },
 ];
 
 export const weightLabels: WeightLabel[] = ["250g", "500g", "1kg"];
@@ -214,20 +223,26 @@ export const buildWeightPrices = (price1kg: number) =>
     "1kg": price1kg,
   }) as Record<WeightLabel, number>;
 
-export const getWeightOptions = (product: Product): WeightOption[] =>
-  weightLabels.map((label) => ({
+export const getWeightOptions = (product: Product): WeightOption[] => {
+  const allowed = product.availableWeights ?? weightLabels;
+  return allowed.map((label) => ({
     label,
     grams: weightGrams[label],
     price: product.weights[label],
   }));
+};
 
 export const getWeightPrice = (product: Product, weightLabel?: string) => {
+  const allowed = product.availableWeights ?? weightLabels;
   const normalizedLabel: WeightLabel =
-    weightLabel && weightLabel in product.weights ? (weightLabel as WeightLabel) : "250g";
+    weightLabel && (allowed as string[]).includes(weightLabel)
+      ? (weightLabel as WeightLabel)
+      : allowed[0];
   return product.weights[normalizedLabel] ?? product.price ?? 0;
 };
 
-export const getDefaultWeightLabel = (product: Product): WeightLabel => "250g";
+export const getDefaultWeightLabel = (product: Product): WeightLabel =>
+  (product.availableWeights ?? weightLabels)[0];
 
 const mk = (
   id: string,
