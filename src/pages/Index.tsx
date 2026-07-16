@@ -17,7 +17,8 @@ import {
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import logo from "@/assets/logo.png";
-import { categories, featuredProducts } from "@/data/products";
+import heroHoney from "@/assets/hero-honey.jpg";
+import { categories, featuredProducts, getProduct } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { waLink, WHATSAPP_DEFAULT_MESSAGE } from "@/config/whatsapp";
@@ -292,6 +293,50 @@ function Hero() {
             </div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function HoneySection() {
+  const honey = getProduct("pure-natural-honey");
+  return (
+    <section className="section-pad pt-0">
+      <div className="container-x">
+        <div className="relative overflow-hidden rounded-[32px] border border-gold/30 shadow-card">
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="relative min-h-[320px] lg:min-h-[460px]">
+              <img
+                src={heroHoney}
+                alt="Pure Natural Honey"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#3d2405]/70 via-[#7a4a10]/40 to-transparent" />
+              <div className="relative z-10 p-8 lg:p-12 text-white max-w-lg">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em]">
+                  <Sparkles className="h-3.5 w-3.5" /> New Arrival
+                </div>
+                <h2 className="mt-5 font-display text-4xl md:text-5xl leading-tight">
+                  🍯 Pure Honey
+                </h2>
+                <p className="mt-4 text-sm md:text-base text-white/90 leading-relaxed">
+                  100% Pure, Natural &amp; Unprocessed Honey collected with traditional methods.
+                  Rich in antioxidants, nutrients and the golden goodness of nature.
+                </p>
+                <Link
+                  to="/category/honey"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground shadow-soft hover:bg-white hover:text-primary transition"
+                >
+                  Explore Honey <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-cream via-white to-[#fef6d9] p-6 lg:p-8 flex items-center">
+              {honey && <ProductCard product={honey} index={0} />}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
