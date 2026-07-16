@@ -165,7 +165,7 @@ function Hero() {
         <div className="absolute bottom-[20%] left-[8%] h-32 w-32 rounded-full bg-gold/25 blur-2xl float-slow" />
       </div>
 
-      <div className="container-x relative grid lg:grid-cols-2 gap-12 items-center min-h-[78vh] py-16">
+      <div className="container-x relative grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center min-h-[78vh] py-12 lg:py-16">
         <div className="max-w-xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -178,7 +178,7 @@ function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mt-5 font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-foreground"
+            className="mt-5 font-display text-4xl sm:text-5xl lg:text-7xl leading-[1.05] text-foreground"
           >
             Authentic <span className="gold-text">Homemade</span> Andhra Foods
           </motion.h1>
@@ -245,27 +245,42 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* Right decorative card */}
+        {/* Right decorative card — visible on ALL viewports */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3 }}
-          className="hidden lg:block relative"
+          className="relative w-full"
         >
-          <div className="relative ml-auto max-w-md">
-            <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-gold/30 to-primary/20 blur-2xl" />
-            <div className="relative rounded-[32px] glass p-8 shadow-gold">
-              <img src={logo} alt="" className="mx-auto h-44 w-44 float-med" />
-              <p className="mt-4 text-center text-sm text-foreground/70">
+          <div className="relative mx-auto lg:ml-auto lg:mr-0 w-full max-w-md sm:max-w-lg">
+            <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-gold/40 via-gold/20 to-primary/25 blur-3xl" />
+            <div className="relative rounded-[32px] glass p-6 sm:p-8 border border-gold/40 shadow-[0_20px_60px_-20px_rgba(212,175,55,0.55)] transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_-20px_rgba(212,175,55,0.7)]">
+              <div className="relative mx-auto flex items-center justify-center">
+                <div className="absolute inset-0 mx-auto h-56 w-56 sm:h-64 sm:w-64 rounded-full bg-gradient-to-br from-gold/50 via-gold/20 to-transparent blur-2xl" />
+                <img
+                  src={logo}
+                  alt="Annapurna Foods"
+                  width={288}
+                  height={288}
+                  loading="eager"
+                  decoding="async"
+                  className="relative h-56 w-56 sm:h-64 sm:w-64 object-contain drop-shadow-[0_6px_18px_rgba(212,175,55,0.55)] float-med"
+                  style={{ imageRendering: "auto" }}
+                />
+              </div>
+              <p className="mt-5 text-center text-sm text-foreground/70">
                 A taste of tradition, blessed by the goddess of nourishment.
               </p>
-              <div className="mt-5 grid grid-cols-3 gap-3 text-center">
+              <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3 text-center">
                 {[
                   { k: "25+", v: "Recipes" },
                   { k: "100%", v: "Natural" },
                   { k: "0", v: "Preservatives" },
                 ].map((s) => (
-                  <div key={s.v} className="rounded-2xl bg-white/80 p-3">
+                  <div
+                    key={s.v}
+                    className="rounded-2xl bg-white/85 p-3 border border-gold/20 shadow-sm"
+                  >
                     <div className="font-display text-xl text-primary">{s.k}</div>
                     <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
                       {s.v}
