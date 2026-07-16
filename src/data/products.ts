@@ -686,6 +686,31 @@ const papadsList: Product[] = [
   },
 ];
 
+// HONEY
+const honeyList: Product[] = [
+  {
+    ...mk(
+      "pure-natural-honey",
+      "Pure Natural Honey",
+      "honey",
+      imgPureHoney,
+      649,
+      "Premium natural honey collected from trusted sources. No added sugar, no preservatives, rich in natural nutrients and antioxidants.",
+      {
+        badge: "100% Pure",
+        ingredients: "100% Pure Natural Honey. No added sugar, no preservatives, no colours.",
+        shelfLife: "24 months from manufacture. Best stored away from direct sunlight.",
+        storage: "Store in a cool, dry place. Use a dry spoon. Natural crystallisation is normal.",
+        benefits:
+          "Rich in antioxidants, natural energy booster, soothes sore throat, supports immunity and digestion.",
+      },
+    ),
+    price: 649,
+    weights: { "250g": 0, "500g": 329, "1kg": 649 },
+    availableWeights: ["500g", "1kg"],
+  },
+];
+
 export const products: Product[] = [
   ...picklesList,
   ...nonVegList,
@@ -695,6 +720,7 @@ export const products: Product[] = [
   ...sweetsList,
   ...vadiyaluList,
   ...papadsList,
+  ...honeyList,
 ];
 
 export const getProductsByCategory = (slug: string) => products.filter((p) => p.category === slug);
