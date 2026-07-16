@@ -254,20 +254,31 @@ function Hero() {
           transition={{ delay: 0.3 }}
           className="relative w-full"
         >
-          <div className="relative mx-auto lg:ml-auto lg:mr-0 w-full max-w-md sm:max-w-lg">
-            <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-gold/40 via-gold/20 to-primary/25 blur-3xl" />
-            <div className="relative rounded-[32px] glass p-6 sm:p-8 border border-gold/40 shadow-[0_20px_60px_-20px_rgba(212,175,55,0.55)] transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_-20px_rgba(212,175,55,0.7)]">
-              <div className="relative mx-auto flex items-center justify-center">
-                <div className="absolute inset-0 mx-auto h-56 w-56 sm:h-64 sm:w-64 rounded-full bg-gradient-to-br from-gold/50 via-gold/20 to-transparent blur-2xl" />
+          <div className="relative mx-auto lg:ml-auto lg:mr-0 w-full max-w-lg sm:max-w-xl">
+            <div className="absolute -inset-8 rounded-[44px] bg-gradient-to-br from-gold/50 via-gold/25 to-primary/25 blur-3xl" />
+            <div className="relative rounded-[32px] glass p-8 sm:p-10 border border-gold/40 shadow-[0_20px_60px_-20px_rgba(212,175,55,0.55)] transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_-20px_rgba(212,175,55,0.7)]">
+              <div className="relative mx-auto flex items-center justify-center py-2">
+                {/* Premium gold outer glow */}
+                <div className="pointer-events-none absolute inset-0 mx-auto h-72 w-72 sm:h-80 sm:w-80 rounded-full bg-[radial-gradient(circle,_rgba(212,175,55,0.55)_0%,_rgba(212,175,55,0.25)_45%,_transparent_70%)] blur-2xl" />
+                <div className="pointer-events-none absolute inset-0 mx-auto h-72 w-72 sm:h-80 sm:w-80 rounded-full ring-1 ring-gold/30" />
                 <img
                   src={logo}
-                  alt="Annapurna Foods"
-                  width={288}
-                  height={288}
+                  srcSet={`${logo} 1x, ${logo} 2x`}
+                  alt="Annapurna Foods — The Goddess Of Food"
+                  width={1254}
+                  height={1254}
                   loading="eager"
-                  decoding="async"
-                  className="relative h-56 w-56 sm:h-64 sm:w-64 object-contain drop-shadow-[0_6px_18px_rgba(212,175,55,0.55)] float-med"
-                  style={{ imageRendering: "auto" }}
+                  fetchPriority="high"
+                  decoding="sync"
+                  draggable={false}
+                  className="relative h-72 w-72 sm:h-80 sm:w-80 object-contain rounded-full float-med"
+                  style={{
+                    imageRendering: "-webkit-optimize-contrast",
+                    filter:
+                      "contrast(1.08) saturate(1.08) brightness(1.05) drop-shadow(0 6px 14px rgba(0,0,0,0.18)) drop-shadow(0 0 22px rgba(212,175,55,0.45))",
+                    backfaceVisibility: "hidden",
+                    transform: "translateZ(0)",
+                  }}
                 />
               </div>
               <p className="mt-5 text-center text-sm text-foreground/70">
