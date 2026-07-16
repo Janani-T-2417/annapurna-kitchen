@@ -17,7 +17,8 @@ import {
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import logo from "@/assets/logo.png";
-import { categories, featuredProducts } from "@/data/products";
+import heroHoney from "@/assets/hero-honey.jpg";
+import { categories, featuredProducts, getProduct } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { waLink, WHATSAPP_DEFAULT_MESSAGE } from "@/config/whatsapp";
@@ -138,6 +139,7 @@ export default function Index() {
       <Hero />
       <TrustBar />
       <CategoriesSection />
+      <HoneySection />
       <DiscountSection />
       <WholesaleSection />
       <FeaturedSection />
@@ -165,7 +167,7 @@ function Hero() {
         <div className="absolute bottom-[20%] left-[8%] h-32 w-32 rounded-full bg-gold/25 blur-2xl float-slow" />
       </div>
 
-      <div className="container-x relative grid lg:grid-cols-2 gap-12 items-center min-h-[78vh] py-16">
+      <div className="container-x relative grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center min-h-[78vh] py-12 lg:py-16">
         <div className="max-w-xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -178,7 +180,7 @@ function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mt-5 font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-foreground"
+            className="mt-5 font-display text-4xl sm:text-5xl lg:text-7xl leading-[1.05] text-foreground"
           >
             Authentic <span className="gold-text">Homemade</span> Andhra Foods
           </motion.h1>
@@ -245,27 +247,42 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* Right decorative card */}
+        {/* Right decorative card — visible on ALL viewports */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3 }}
-          className="hidden lg:block relative"
+          className="relative w-full"
         >
-          <div className="relative ml-auto max-w-md">
-            <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-gold/30 to-primary/20 blur-2xl" />
-            <div className="relative rounded-[32px] glass p-8 shadow-gold">
-              <img src={logo} alt="" className="mx-auto h-44 w-44 float-med" />
-              <p className="mt-4 text-center text-sm text-foreground/70">
+          <div className="relative mx-auto lg:ml-auto lg:mr-0 w-full max-w-md sm:max-w-lg">
+            <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-gold/40 via-gold/20 to-primary/25 blur-3xl" />
+            <div className="relative rounded-[32px] glass p-6 sm:p-8 border border-gold/40 shadow-[0_20px_60px_-20px_rgba(212,175,55,0.55)] transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_-20px_rgba(212,175,55,0.7)]">
+              <div className="relative mx-auto flex items-center justify-center">
+                <div className="absolute inset-0 mx-auto h-56 w-56 sm:h-64 sm:w-64 rounded-full bg-gradient-to-br from-gold/50 via-gold/20 to-transparent blur-2xl" />
+                <img
+                  src={logo}
+                  alt="Annapurna Foods"
+                  width={288}
+                  height={288}
+                  loading="eager"
+                  decoding="async"
+                  className="relative h-56 w-56 sm:h-64 sm:w-64 object-contain drop-shadow-[0_6px_18px_rgba(212,175,55,0.55)] float-med"
+                  style={{ imageRendering: "auto" }}
+                />
+              </div>
+              <p className="mt-5 text-center text-sm text-foreground/70">
                 A taste of tradition, blessed by the goddess of nourishment.
               </p>
-              <div className="mt-5 grid grid-cols-3 gap-3 text-center">
+              <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3 text-center">
                 {[
                   { k: "25+", v: "Recipes" },
                   { k: "100%", v: "Natural" },
                   { k: "0", v: "Preservatives" },
                 ].map((s) => (
-                  <div key={s.v} className="rounded-2xl bg-white/80 p-3">
+                  <div
+                    key={s.v}
+                    className="rounded-2xl bg-white/85 p-3 border border-gold/20 shadow-sm"
+                  >
                     <div className="font-display text-xl text-primary">{s.k}</div>
                     <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
                       {s.v}
@@ -276,6 +293,50 @@ function Hero() {
             </div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function HoneySection() {
+  const honey = getProduct("pure-natural-honey");
+  return (
+    <section className="section-pad pt-0">
+      <div className="container-x">
+        <div className="relative overflow-hidden rounded-[32px] border border-gold/30 shadow-card">
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="relative min-h-[320px] lg:min-h-[460px]">
+              <img
+                src={heroHoney}
+                alt="Pure Natural Honey"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#3d2405]/70 via-[#7a4a10]/40 to-transparent" />
+              <div className="relative z-10 p-8 lg:p-12 text-white max-w-lg">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em]">
+                  <Sparkles className="h-3.5 w-3.5" /> New Arrival
+                </div>
+                <h2 className="mt-5 font-display text-4xl md:text-5xl leading-tight">
+                  🍯 Pure Honey
+                </h2>
+                <p className="mt-4 text-sm md:text-base text-white/90 leading-relaxed">
+                  100% Pure, Natural &amp; Unprocessed Honey collected with traditional methods.
+                  Rich in antioxidants, nutrients and the golden goodness of nature.
+                </p>
+                <Link
+                  to="/category/honey"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground shadow-soft hover:bg-white hover:text-primary transition"
+                >
+                  Explore Honey <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-cream via-white to-[#fef6d9] p-6 lg:p-8 flex items-center">
+              {honey && <ProductCard product={honey} index={0} />}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

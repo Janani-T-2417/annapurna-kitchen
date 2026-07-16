@@ -7,6 +7,7 @@ import heroSnacks from "@/assets/hero-snacks.jpg";
 import heroSweets from "@/assets/hero-sweets.jpg";
 import heroVadiyalu from "@/assets/hero-vadiyalu.jpg";
 import heroPapads from "@/assets/hero-papads.jpg";
+import heroHoney from "@/assets/hero-honey.jpg";
 
 // Category tile thumbnails (re-used heroes — they render great as cards too)
 import catPickles from "@/assets/cat-pickles.jpg";
@@ -17,6 +18,8 @@ import catSnacks from "@/assets/cat-snacks.jpg";
 import catSweets from "@/assets/cat-sweets.jpg";
 import catVadiyalu from "@/assets/cat-vadiyalu.jpg";
 import catPapads from "@/assets/cat-papads.jpg";
+import catHoney from "@/assets/cat-honey.jpg";
+import imgPureHoney from "@/assets/p/pure-honey.jpg";
 
 // Product images — one per SKU
 import imgAvakaya from "@/assets/p/avakaya.jpg";
@@ -122,6 +125,8 @@ export type Product = {
   ingredients?: string;
   shelfLife?: string;
   storage?: string;
+  benefits?: string;
+  availableWeights?: WeightLabel[];
 };
 
 export const categories: Category[] = [
@@ -197,6 +202,15 @@ export const categories: Category[] = [
     tagline: "Crisp, golden, hand-rolled",
     gradient: "from-[#1f1405]/90 via-[#7a4a10]/50 to-[#3d1f08]/45",
   },
+  {
+    slug: "honey",
+    name: "Pure Honey",
+    emoji: "🍯",
+    image: catHoney,
+    hero: heroHoney,
+    tagline: "100% pure & unprocessed",
+    gradient: "from-[#3d2405]/85 via-[#b8800f]/55 to-[#D4AF37]/40",
+  },
 ];
 
 export const weightLabels: WeightLabel[] = ["250g", "500g", "1kg"];
@@ -209,20 +223,26 @@ export const buildWeightPrices = (price1kg: number) =>
     "1kg": price1kg,
   }) as Record<WeightLabel, number>;
 
-export const getWeightOptions = (product: Product): WeightOption[] =>
-  weightLabels.map((label) => ({
+export const getWeightOptions = (product: Product): WeightOption[] => {
+  const allowed = product.availableWeights ?? weightLabels;
+  return allowed.map((label) => ({
     label,
     grams: weightGrams[label],
     price: product.weights[label],
   }));
+};
 
 export const getWeightPrice = (product: Product, weightLabel?: string) => {
+  const allowed = product.availableWeights ?? weightLabels;
   const normalizedLabel: WeightLabel =
-    weightLabel && weightLabel in product.weights ? (weightLabel as WeightLabel) : "250g";
+    weightLabel && (allowed as string[]).includes(weightLabel)
+      ? (weightLabel as WeightLabel)
+      : allowed[0];
   return product.weights[normalizedLabel] ?? product.price ?? 0;
 };
 
-export const getDefaultWeightLabel = (product: Product): WeightLabel => "250g";
+export const getDefaultWeightLabel = (product: Product): WeightLabel =>
+  (product.availableWeights ?? weightLabels)[0];
 
 const mk = (
   id: string,
@@ -666,6 +686,31 @@ const papadsList: Product[] = [
   },
 ];
 
+// HONEY
+const honeyList: Product[] = [
+  {
+    ...mk(
+      "pure-natural-honey",
+      "Pure Natural Honey",
+      "honey",
+      imgPureHoney,
+      649,
+      "Premium natural honey collected from trusted sources. No added sugar, no preservatives, rich in natural nutrients and antioxidants.",
+      {
+        badge: "100% Pure",
+        ingredients: "100% Pure Natural Honey. No added sugar, no preservatives, no colours.",
+        shelfLife: "24 months from manufacture. Best stored away from direct sunlight.",
+        storage: "Store in a cool, dry place. Use a dry spoon. Natural crystallisation is normal.",
+        benefits:
+          "Rich in antioxidants, natural energy booster, soothes sore throat, supports immunity and digestion.",
+      },
+    ),
+    price: 649,
+    weights: { "250g": 0, "500g": 329, "1kg": 649 },
+    availableWeights: ["500g", "1kg"],
+  },
+];
+
 export const products: Product[] = [
   ...picklesList,
   ...nonVegList,
@@ -675,6 +720,7 @@ export const products: Product[] = [
   ...sweetsList,
   ...vadiyaluList,
   ...papadsList,
+  ...honeyList,
 ];
 
 export const getProductsByCategory = (slug: string) => products.filter((p) => p.category === slug);
