@@ -567,58 +567,61 @@ const snacksList: Product[] = [
   [
     "karapusa",
     "Homemade Karapusa",
-    320,
+    400,
     "Crisp spiced sev — the perfect tea-time companion.",
     imgKarapusa,
   ],
   [
     "chekkalu",
     "Homemade Chekkalu",
-    300,
+    400,
     "Rice flour crackers with sesame and chilli.",
     imgChekkalu,
   ],
   [
     "beetroot-chekkalu",
     "Beetroot Chekkalu",
-    340,
+    400,
     "A modern twist with deep beetroot colour.",
     imgBeetrootChekkalu,
   ],
-  ["chegodilu", "Chegodilu", 320, "Crunchy ring-shaped Andhra snack.", imgChegodilu],
+  ["chegodilu", "Chegodilu", 400, "Crunchy ring-shaped Andhra snack.", imgChegodilu],
   [
     "ribbon-pakodi",
     "Ribbon Pakodi",
-    310,
+    400,
     "Ribbon-thin gram flour snack, crisp and spicy.",
     imgRibbonPakodi,
   ],
-  ["cashew-fry", "Cashew Fry", 690, "Premium roasted cashews in a delicate masala.", imgCashewFry],
+  ["cashew-fry", "Cashew Fry", 400, "Premium roasted cashews in a delicate masala.", imgCashewFry],
   [
     "cashew-badam",
     "Cashew & Badam Mixture",
-    720,
+    400,
     "Festive dry-fruit mixture — rich and aromatic.",
     imgCashewBadam,
   ],
-  ["boondi", "Boondi", 280, "Tiny crisp gram flour pearls.", imgBoondi],
-].map(([id, name, p, d, img]) =>
-  mk(id as string, name as string, "snacks", img as string, p as number, d as string),
-);
+  ["boondi", "Boondi", 400, "Tiny crisp gram flour pearls.", imgBoondi],
+].map(([id, name, p, d, img]) => {
+  const product = mk(id as string, name as string, "snacks", img as string, p as number, d as string);
+  product.price = 400;
+  product.weights = { "250g": 100, "500g": 200, "1kg": 400 };
+  return product;
+});
 
 // SWEETS
 const sweetsList: Product[] = [
   [
     "dry-fruit-laddu",
     "Dry Fruit Laddu",
-    780,
+    600,
     "No-sugar laddu bound with dates and ghee.",
     imgDryFruitLaddu,
   ],
   [
     "dry-fruit-mix",
     "Dry Fruit Mix",
-    820,
+    600,
     "Curated mix of nuts, raisins and seeds.",
     imgDryFruitMix,
   ],
@@ -639,7 +642,7 @@ const sweetsList: Product[] = [
   [
     "sunnivundalu",
     "Special Sunnivundalu",
-    560,
+    600,
     "Roasted gram laddu with ghee and cardamom.",
     imgSunnivundalu,
   ],
@@ -661,7 +664,7 @@ const sweetsList: Product[] = [
   [
     "madugula-halwa",
     "Madugula Special Halwa",
-    720,
+    999,
     "Slow-cooked traditional halwa from Madugula.",
     imgMadugulaHalwa,
   ],
@@ -681,9 +684,20 @@ const sweetsList: Product[] = [
     "Sweetened cream poori — melts in the mouth.",
     imgMalaiPoori,
   ],
-].map(([id, name, p, d, img]) =>
-  mk(id as string, name as string, "sweets", img as string, p as number, d as string),
-);
+].map(([id, name, p, d, img]) => {
+  const product = mk(id as string, name as string, "sweets", img as string, p as number, d as string);
+  if (id === "sunnivundalu") {
+    product.price = 600;
+    product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
+  } else if (id === "madugula-halwa") {
+    product.price = 999;
+    product.weights = { "250g": 250, "500g": 500, "1kg": 999 };
+  } else if (id === "dry-fruit-laddu" || id === "dry-fruit-mix") {
+    product.price = 600;
+    product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
+  }
+  return product;
+});
 
 // VADIYALU
 const vadiyaluList: Product[] = [
@@ -693,16 +707,19 @@ const vadiyaluList: Product[] = [
   ["saggu-biyyam", "Saggu Biyyam Vadiyalu", 340, imgSagguBiyyam],
   ["minapa", "Minapa Vadiyalu", 380, imgMinapa],
   ["appada-puvvulu", "Appada Puvvulu", 360, imgAppadaPuvvulu],
-].map(([id, name, p, img]) =>
-  mk(
+].map(([id, name, p, img]) => {
+  const product = mk(
     "vad-" + (id as string),
     name as string,
     "vadiyalu",
     img as string,
     p as number,
     "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
-  ),
-);
+  );
+  product.price = 600;
+  product.weights = { "250g": 175, "500g": 300, "1kg": 600 };
+  return product;
+});
 
 // PAPADS
 const papadsList: Product[] = [
