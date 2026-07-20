@@ -282,9 +282,26 @@ function Hero() {
                   }}
                 />
               </div>
-              <p className="mt-5 text-center text-sm text-foreground/70">
-                A taste of tradition, blessed by the goddess of nourishment.
-              </p>
+              <div className="mx-auto mt-7 flex max-w-[29rem] items-center justify-center gap-3 px-2 sm:mt-8 sm:gap-4">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/70 to-gold" />
+                <div className="rounded-full border border-gold/35 bg-white/70 px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-primary/90 sm:px-3 sm:text-[0.75rem]">
+                  <span className="text-gold">✦</span>
+                </div>
+                <div className="h-px flex-1 bg-gradient-to-l from-transparent via-gold/70 to-gold" />
+              </div>
+
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.65 }}
+                className="mx-auto mt-4 max-w-[30rem] px-2 text-center font-display text-[1rem] leading-[1.8] tracking-[0.14em] text-[#4A2C17] sm:text-[1.08rem] sm:leading-[1.9] md:text-[1.16rem] lg:text-[1.2rem]"
+                style={{
+                  textShadow: "0 1px 2px rgba(74, 44, 23, 0.08), 0 0 12px rgba(212, 175, 55, 0.12)",
+                }}
+              >
+                A taste of <span className="font-semibold text-[#D4AF37]">tradition</span>, blessed
+                by the <span className="font-semibold text-[#D4AF37]">goddess</span> of nourishment.
+              </motion.p>
               <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3 text-center">
                 {[
                   { k: "25+", v: "Recipes" },
