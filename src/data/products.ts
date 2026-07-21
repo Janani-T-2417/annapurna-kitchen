@@ -722,7 +722,7 @@ const vadiyaluList: Product[] = [
   ["saggu-biyyam", "Saggu Biyyam Vadiyalu", 340, imgSagguBiyyam],
   ["minapa", "Minapa Vadiyalu", 380, imgMinapa],
   ["appada-puvvulu", "Appada Puvvulu", 360, imgAppadaPuvvulu],
-  ["ulavacharu", "Ulavacharu Vadiyalu", 600, imgUlavacharuVadiyalu],
+  ["ulavacharu", "Ulavacharu", 600, imgUlavacharuVadiyalu],
 ].map(([id, name, p, img]) => {
   const product = mk(
     "vad-" + (id as string),
