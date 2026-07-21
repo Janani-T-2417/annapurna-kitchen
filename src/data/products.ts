@@ -694,13 +694,6 @@ const sweetsList: Product[] = [
     "Traditional Andhra sweet with crispy layers, rich milk flavour, and delicious sweetness.",
     imgMalaiKaja,
   ],
-  [
-    "cashew-achu",
-    "Cashew Achu",
-    400,
-    "Traditional cashew-based sweet, crispy, rich, and handcrafted with premium ingredients.",
-    imgCashewAchu,
-  ],
 ].map(([id, name, p, d, img]) => {
   const product = mk(id as string, name as string, "sweets", img as string, p as number, d as string);
   if (id === "sunnivundalu") {
@@ -717,12 +710,6 @@ const sweetsList: Product[] = [
     product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
     product.ingredients = "Maida, ghee, sugar, milk, cardamom.";
     product.shelfLife = "15 days from packing.";
-    product.storage = "Store in an airtight jar in a cool, dry place.";
-  } else if (id === "cashew-achu") {
-    product.price = 400;
-    product.weights = { "250g": 100, "500g": 200, "1kg": 400 };
-    product.ingredients = "Cashew nuts, sugar, ghee, cardamom.";
-    product.shelfLife = "20 days from packing.";
     product.storage = "Store in an airtight jar in a cool, dry place.";
   }
   return product;
