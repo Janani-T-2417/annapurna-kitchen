@@ -95,6 +95,9 @@ import imgMinapa from "@/assets/p/minapa.jpg";
 import imgAppadaPuvvulu from "@/assets/p/appada-puvvulu.jpg";
 
 import imgPapad from "@/assets/p/papad.jpg";
+import imgMalaiKaja from "@/assets/p/malai-kaja.jpg";
+import imgCashewAchu from "@/assets/p/cashew-achu.jpg";
+import imgUlavacharuVadiyalu from "@/assets/p/ulavacharu-vadiyalu.jpg";
 
 export type Category = {
   slug: string;
