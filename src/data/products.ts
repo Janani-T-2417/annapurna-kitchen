@@ -95,6 +95,9 @@ import imgMinapa from "@/assets/p/minapa.jpg";
 import imgAppadaPuvvulu from "@/assets/p/appada-puvvulu.jpg";
 
 import imgPapad from "@/assets/p/papad.jpg";
+import imgMalaiKaja from "@/assets/p/malai-kaja.jpg";
+import imgCashewAchu from "@/assets/p/cashew-achu.jpg";
+import imgUlavacharuVadiyalu from "@/assets/p/ulavacharu-vadiyalu.jpg";
 
 export type Category = {
   slug: string;
@@ -684,6 +687,20 @@ const sweetsList: Product[] = [
     "Sweetened cream poori — melts in the mouth.",
     imgMalaiPoori,
   ],
+  [
+    "malai-kaja",
+    "Malai Kaja",
+    600,
+    "Traditional Andhra sweet with crispy layers, rich milk flavour, and delicious sweetness.",
+    imgMalaiKaja,
+  ],
+  [
+    "cashew-achu",
+    "Cashew Achu",
+    400,
+    "Traditional cashew-based sweet, crispy, rich, and handcrafted with premium ingredients.",
+    imgCashewAchu,
+  ],
 ].map(([id, name, p, d, img]) => {
   const product = mk(id as string, name as string, "sweets", img as string, p as number, d as string);
   if (id === "sunnivundalu") {
@@ -695,6 +712,18 @@ const sweetsList: Product[] = [
   } else if (id === "dry-fruit-laddu" || id === "dry-fruit-mix") {
     product.price = 600;
     product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
+  } else if (id === "malai-kaja") {
+    product.price = 600;
+    product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
+    product.ingredients = "Maida, ghee, sugar, milk, cardamom.";
+    product.shelfLife = "15 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
+  } else if (id === "cashew-achu") {
+    product.price = 400;
+    product.weights = { "250g": 100, "500g": 200, "1kg": 400 };
+    product.ingredients = "Cashew nuts, sugar, ghee, cardamom.";
+    product.shelfLife = "20 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
   }
   return product;
 });
@@ -707,6 +736,7 @@ const vadiyaluList: Product[] = [
   ["saggu-biyyam", "Saggu Biyyam Vadiyalu", 340, imgSagguBiyyam],
   ["minapa", "Minapa Vadiyalu", 380, imgMinapa],
   ["appada-puvvulu", "Appada Puvvulu", 360, imgAppadaPuvvulu],
+  ["ulavacharu", "Ulavacharu Vadiyalu", 600, imgUlavacharuVadiyalu],
 ].map(([id, name, p, img]) => {
   const product = mk(
     "vad-" + (id as string),
@@ -714,10 +744,17 @@ const vadiyaluList: Product[] = [
     "vadiyalu",
     img as string,
     p as number,
-    "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
+    id === "ulavacharu"
+      ? "Traditional Andhra horse gram (Ulavacharu) flavoured vadiyalu, handmade and sun-dried."
+      : "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
   );
   product.price = 600;
   product.weights = { "250g": 175, "500g": 300, "1kg": 600 };
+  if (id === "ulavacharu") {
+    product.ingredients = "Horse gram (ulavalu), urad dal, green chillies, salt, spices.";
+    product.shelfLife = "6 months when stored properly.";
+    product.storage = "Store in an airtight container in a cool, dry place.";
+  }
   return product;
 });
 
