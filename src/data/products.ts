@@ -736,6 +736,7 @@ const vadiyaluList: Product[] = [
   ["saggu-biyyam", "Saggu Biyyam Vadiyalu", 340, imgSagguBiyyam],
   ["minapa", "Minapa Vadiyalu", 380, imgMinapa],
   ["appada-puvvulu", "Appada Puvvulu", 360, imgAppadaPuvvulu],
+  ["ulavacharu", "Ulavacharu Vadiyalu", 600, imgUlavacharuVadiyalu],
 ].map(([id, name, p, img]) => {
   const product = mk(
     "vad-" + (id as string),
@@ -743,10 +744,17 @@ const vadiyaluList: Product[] = [
     "vadiyalu",
     img as string,
     p as number,
-    "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
+    id === "ulavacharu"
+      ? "Traditional Andhra horse gram (Ulavacharu) flavoured vadiyalu, handmade and sun-dried."
+      : "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
   );
   product.price = 600;
   product.weights = { "250g": 175, "500g": 300, "1kg": 600 };
+  if (id === "ulavacharu") {
+    product.ingredients = "Horse gram (ulavalu), urad dal, green chillies, salt, spices.";
+    product.shelfLife = "6 months when stored properly.";
+    product.storage = "Store in an airtight container in a cool, dry place.";
+  }
   return product;
 });
 
