@@ -696,6 +696,27 @@ const sweetsList: Product[] = [
     "Traditional Andhra sweet with crispy layers, rich milk flavour, and delicious sweetness.",
     imgMalaiKaja,
   ],
+  [
+    "palakova",
+    "Palakova",
+    800,
+    "Traditional Andhra milk sweet prepared from pure milk, slow-cooked to perfection with a rich, creamy texture.",
+    imgPalakova,
+  ],
+  [
+    "nuvvula-vundalu",
+    "Nuvvula Vundalu",
+    400,
+    "Traditional sesame sweet prepared with roasted sesame seeds and jaggery, rich in taste and nutrition.",
+    imgNuvvulaVundalu,
+  ],
+  [
+    "kobbari-vundalu",
+    "Kobbari Vundalu",
+    600,
+    "Traditional homemade coconut sweet prepared with fresh coconut and jaggery for an authentic Andhra taste.",
+    imgKobbariVundalu,
+  ],
 ].map(([id, name, p, d, img]) => {
   const product = mk(id as string, name as string, "sweets", img as string, p as number, d as string);
   if (id === "sunnivundalu") {
@@ -711,6 +732,24 @@ const sweetsList: Product[] = [
     product.price = 600;
     product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
     product.ingredients = "Maida, ghee, sugar, milk, cardamom.";
+    product.shelfLife = "15 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
+  } else if (id === "palakova") {
+    product.price = 800;
+    product.weights = { "250g": 200, "500g": 400, "1kg": 800 };
+    product.ingredients = "Pure milk, sugar, cardamom.";
+    product.shelfLife = "10 days from packing.";
+    product.storage = "Refrigerate after opening. Keep in an airtight container.";
+  } else if (id === "nuvvula-vundalu") {
+    product.price = 400;
+    product.weights = { "250g": 100, "500g": 200, "1kg": 400 };
+    product.ingredients = "Roasted sesame seeds, jaggery, ghee.";
+    product.shelfLife = "30 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
+  } else if (id === "kobbari-vundalu") {
+    product.price = 600;
+    product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
+    product.ingredients = "Fresh coconut, jaggery, cardamom, ghee.";
     product.shelfLife = "15 days from packing.";
     product.storage = "Store in an airtight jar in a cool, dry place.";
   }
