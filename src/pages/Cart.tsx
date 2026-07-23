@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Minus, Plus, ShoppingBag, Tag, Trash2 } from "lucide-react";
 import { useShop } from "@/store/shop";
+import { getWeightOptions } from "@/data/products";
 
 export default function Cart() {
   const { cart, updateQty, removeFromCart, cartTotal, clearCart } = useShop();
