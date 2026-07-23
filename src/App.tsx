@@ -47,6 +47,7 @@ export default function App() {
       <div className="flex min-h-screen flex-col bg-background">
         <AnnouncementBar />
         <Navbar />
+        <ScrollToTop />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Index />} />
