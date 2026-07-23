@@ -100,6 +100,8 @@ import imgUlavacharuVadiyalu from "@/assets/p/ulavacharu-vadiyalu.jpg";
 import imgPalakova from "@/assets/p/palakova.jpg";
 import imgNuvvulaVundalu from "@/assets/p/nuvvula-vundalu.jpg";
 import imgKobbariVundalu from "@/assets/p/kobbari-vundalu.jpg";
+import imgCoconutKajjikayalu from "@/assets/p/coconut-kajjikayalu.jpg";
+import imgMilletsLaddu from "@/assets/p/millets-laddu.jpg";
 
 export type Category = {
   slug: string;
