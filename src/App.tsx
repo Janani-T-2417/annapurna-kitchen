@@ -5,6 +5,7 @@ import { ShopProvider } from "@/store/shop";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { ScrollToTop } from "@/components/site/ScrollToTop";
 
 import Index from "@/pages/Index";
 import About from "@/pages/About";
@@ -46,6 +47,7 @@ export default function App() {
       <div className="flex min-h-screen flex-col bg-background">
         <AnnouncementBar />
         <Navbar />
+        <ScrollToTop />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Index />} />
