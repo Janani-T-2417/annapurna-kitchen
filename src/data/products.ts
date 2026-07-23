@@ -812,8 +812,8 @@ const vadiyaluList: Product[] = [
       ? "Traditional Andhra horse gram (Ulavacharu) flavoured vadiyalu, handmade and sun-dried."
       : "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
   );
-  product.price = p;
-  product.weights = buildWeightPrices(p);
+  product.price = p as number;
+  product.weights = buildWeightPrices(p as number);
   if (id === "challa-mirapakayalu" || id === "gummadi") {
     product.price = 999;
     product.weights = buildWeightPrices(999);
