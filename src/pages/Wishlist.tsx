@@ -25,22 +25,24 @@ function WishlistRow({ product }: { product: Product }) {
         <Link to={`/product/${product.id}`} className="font-display text-lg hover:text-primary">
           {product.name}
         </Link>
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {weightOptions.map((opt) => (
-            <button
-              key={opt.label}
-              onClick={() => setWeight(opt.label)}
-              className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${weight === opt.label ? "bg-primary text-primary-foreground border-primary" : "border-border bg-warm"}`}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
+        {weightOptions.length > 1 ? (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {weightOptions.map((opt) => (
+              <button
+                key={opt.label}
+                onClick={() => setWeight(opt.label)}
+                className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${weight === opt.label ? "bg-primary text-primary-foreground border-primary" : "border-border bg-warm"}`}
+              >
+                {opt.displayLabel}
+              </button>
+            ))}
+          </div>
+        ) : null}
         <div className="mt-3 flex items-center gap-3 flex-wrap">
           <span className="font-display text-lg text-primary">
             ₹{getWeightPrice(product, weight)}
           </span>
-          <span className="text-xs text-muted-foreground">{selectedWeight.label}</span>
+          <span className="text-xs text-muted-foreground">{selectedWeight.displayLabel}</span>
           <button
             onClick={() => {
               addToCart(product, weight, 1);

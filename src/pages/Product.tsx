@@ -157,7 +157,7 @@ export default function Product() {
             <div className="mt-2 flex items-end gap-3">
               <div className="font-display text-4xl text-primary">₹{selectedWeight.price}</div>
               <div className="text-sm text-muted-foreground">
-                / {selectedWeight.label} · incl. taxes
+                / {selectedWeight.displayLabel} · incl. taxes
               </div>
             </div>
             <div className="mt-3 flex items-center gap-2 text-sm text-primary">
@@ -178,27 +178,29 @@ export default function Product() {
             </div>
           </div>
 
-          <div className="mt-6">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
-              Weight Options
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {weightOptions.map((opt) => (
-                <button
-                  key={opt.label}
-                  onClick={() => setWeight(opt.label)}
-                  className={cn(
-                    "rounded-full border px-4 py-2 text-sm font-medium transition",
-                    weight === opt.label
-                      ? "bg-primary text-primary-foreground border-primary"
-                      : "border-border bg-warm hover:border-primary/40",
-                  )}
-                >
-                  {opt.label} — ₹{opt.price}
-                </button>
-              ))}
+          {weightOptions.length > 1 ? (
+            <div className="mt-6">
+              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
+                Weight Options
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {weightOptions.map((opt) => (
+                  <button
+                    key={opt.label}
+                    onClick={() => setWeight(opt.label)}
+                    className={cn(
+                      "rounded-full border px-4 py-2 text-sm font-medium transition",
+                      weight === opt.label
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "border-border bg-warm hover:border-primary/40",
+                    )}
+                  >
+                    {opt.displayLabel} — ₹{opt.price}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
 
           <div className="mt-6 flex items-center gap-4">
             <div className="flex items-center rounded-full border border-border bg-warm">
@@ -243,7 +245,9 @@ export default function Product() {
 
           <button
             onClick={() =>
-              openWhatsApp(waProductMessage(product.name, weight, getWeightPrice(product, weight)))
+              openWhatsApp(
+                waProductMessage(product.name, selectedWeight.displayLabel, getWeightPrice(product, weight)),
+              )
             }
             type="button"
             title={`Order ${product.name} on WhatsApp`}
@@ -290,7 +294,7 @@ export default function Product() {
       {related.length > 0 && (
         <section className="container-x section-pad">
           <h2 className="font-display text-3xl md:text-4xl">You may also love</h2>
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {related.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} />
             ))}

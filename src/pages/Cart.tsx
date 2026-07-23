@@ -66,7 +66,9 @@ export default function Cart() {
                 >
                   {it.product.name}
                 </Link>
-                <p className="text-xs text-muted-foreground">{it.weightLabel}</p>
+                <p className="text-xs text-muted-foreground">
+                  {getWeightOptions(it.product).find((opt) => opt.label === it.weightLabel)?.displayLabel ?? it.weightLabel}
+                </p>
                 <div className="mt-3 flex items-center justify-between gap-4 flex-wrap">
                   <div className="flex items-center rounded-full border border-border bg-warm">
                     <button

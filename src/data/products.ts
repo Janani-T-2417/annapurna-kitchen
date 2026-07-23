@@ -113,7 +113,7 @@ export type Category = {
 };
 
 export type WeightLabel = "250g" | "500g" | "1kg";
-export type WeightOption = { label: WeightLabel; grams: number; price: number };
+export type WeightOption = { label: WeightLabel; grams: number; price: number; displayLabel: string };
 
 export type Product = {
   id: string;
@@ -132,6 +132,7 @@ export type Product = {
   storage?: string;
   benefits?: string;
   availableWeights?: WeightLabel[];
+  weightLabelText?: Partial<Record<WeightLabel, string>>;
 };
 
 export const categories: Category[] = [
@@ -234,6 +235,7 @@ export const getWeightOptions = (product: Product): WeightOption[] => {
     label,
     grams: weightGrams[label],
     price: product.weights[label],
+    displayLabel: product.weightLabelText?.[label] ?? label,
   }));
 };
 
@@ -380,42 +382,42 @@ const nonVegList: Product[] = [
   [
     "gongura-prawn",
     "Gongura Prawn Pickle",
-    920,
+    2000,
     "Sorrel-laced prawn pickle — coastal Andhra at its best.",
     imgGonguraPrawn,
   ],
   [
     "gongura-chicken",
     "Gongura Chicken Pickle",
-    820,
+    1400,
     "Sorrel and chicken slow-cooked with red chilli.",
     imgGonguraChicken,
   ],
   [
     "fish-koramenu",
     "Fish Koramenu Pickle",
-    850,
+    1800,
     "Firm river fish in a robust chilli masala.",
     imgFishKoramenu,
   ],
   [
     "fish-pandugappa",
     "Fish Pandugappa Pickle",
-    880,
+    1800,
     "Coastal fish pickle with a clean, savoury heat.",
     imgFishPandugappa,
   ],
   [
     "gongura-mutton",
     "Gongura Mutton Pickle",
-    980,
+    2200,
     "Mutton & sorrel — rich, slow and indulgent.",
     imgGonguraMutton,
   ],
   [
     "natu-kodi",
     "Natu Kodi Pickle",
-    880,
+    2200,
     "Country chicken pickle with old-world depth.",
     imgNatuKodi,
   ],
@@ -435,6 +437,12 @@ const chickenPickle = nonVegList.find((product) => product.id === "chicken-bone"
 if (chickenPickle) {
   chickenPickle.price = 1000;
   chickenPickle.weights = buildWeightPrices(1000);
+  chickenPickle.badge = "⭐ Must Try";
+}
+
+const gonguraChickenPickle = nonVegList.find((product) => product.id === "gongura-chicken");
+if (gonguraChickenPickle) {
+  gonguraChickenPickle.badge = "⭐ Must Try";
 }
 
 const prawnPickle = nonVegList.find((product) => product.id === "prawn");
@@ -512,6 +520,9 @@ vegList.forEach((product) => {
     product.price = config.price;
     product.weights = config.weights;
   }
+  if (slug === "kakarakaya") {
+    product.badge = "⭐ Must Try";
+  }
 });
 
 // PODI
@@ -536,7 +547,7 @@ const podiList: Product[] = [
   [
     "plain-chilli",
     "Plain Chilli Powder",
-    650,
+    600,
     "Sun-dried Guntur chillies, stone-ground.",
     imgPlainChilli,
   ],
@@ -550,7 +561,7 @@ const podiList: Product[] = [
   [
     "pickle-chilli",
     "Pickle Chilli Powder",
-    650,
+    600,
     "Coarse pickle-grade chilli for that perfect colour.",
     imgPickleChilli,
   ],
@@ -598,19 +609,24 @@ const snacksList: Product[] = [
     "Ribbon-thin gram flour snack, crisp and spicy.",
     imgRibbonPakodi,
   ],
-  ["cashew-fry", "Cashew Fry", 400, "Premium roasted cashews in a delicate masala.", imgCashewFry],
+  ["cashew-fry", "Cashew Fry", 1200, "Premium roasted cashews in a delicate masala.", imgCashewFry],
   [
     "cashew-badam",
     "Cashew & Badam Mixture",
-    400,
+    1200,
     "Festive dry-fruit mixture — rich and aromatic.",
     imgCashewBadam,
   ],
   ["boondi", "Boondi", 400, "Tiny crisp gram flour pearls.", imgBoondi],
 ].map(([id, name, p, d, img]) => {
   const product = mk(id as string, name as string, "snacks", img as string, p as number, d as string);
-  product.price = 400;
-  product.weights = { "250g": 100, "500g": 200, "1kg": 400 };
+  if (id === "cashew-fry" || id === "cashew-badam") {
+    product.price = 1200;
+    product.weights = { "250g": 300, "500g": 600, "1kg": 1200 };
+  } else {
+    product.price = 400;
+    product.weights = { "250g": 100, "500g": 200, "1kg": 400 };
+  }
   return product;
 });
 
@@ -619,28 +635,28 @@ const sweetsList: Product[] = [
   [
     "dry-fruit-laddu",
     "Dry Fruit Laddu",
-    600,
+    1200,
     "No-sugar laddu bound with dates and ghee.",
     imgDryFruitLaddu,
   ],
   [
     "dry-fruit-mix",
     "Dry Fruit Mix",
-    600,
+    1200,
     "Curated mix of nuts, raisins and seeds.",
     imgDryFruitMix,
   ],
   [
     "athreyapuram-potharekulu",
     "Athreyapuram Potharekulu",
-    540,
+    400,
     "The famed paper-thin sweet from Athreyapuram.",
     imgAthreyapuram,
   ],
   [
     "bellam-potharekulu",
-    "Bellam Potharekulu",
-    520,
+    "Kaaju Bellam Potharekulu",
+    400,
     "Jaggery-filled potharekulu — wholesome and rich.",
     imgBellamPotharekulu,
   ],
@@ -658,13 +674,20 @@ const sweetsList: Product[] = [
     "Sun-dried mango fruit leather, naturally sweet.",
     imgMamidiTandra,
   ],
-  ["cashew-chikki", "Cashew Chikki", 620, "Crunchy cashew-jaggery brittle.", imgCashewChikki],
+  ["cashew-chikki", "Cashew Chikki", 1000, "Crunchy cashew-jaggery brittle.", imgCashewChikki],
   [
     "palli-chikki",
     "Palli Chikki",
-    360,
+    580,
     "Peanut jaggery chikki — a childhood favourite.",
     imgPalliChikki,
+  ],
+  [
+    "malai-laddu",
+    "Malai Laddu",
+    1000,
+    "Traditional milk-based laddu prepared with pure ghee and premium ingredients.",
+    imgDryFruitLaddu,
   ],
   [
     "madugula-halwa",
@@ -674,7 +697,7 @@ const sweetsList: Product[] = [
     imgMadugulaHalwa,
   ],
   ["ariselu", "Ariselu", 540, "Jaggery-rice festive sweet, fried in ghee.", imgAriselu],
-  ["nethi-ariselu", "Nethi Ariselu", 580, "Ghee-laden ariselu — extra rich.", imgNethiAriselu],
+  ["nethi-ariselu", "Nethi Ariselu", 650, "Ghee-laden ariselu — extra rich.", imgNethiAriselu],
   [
     "bellam-gavvalu",
     "Bellam Gavvalu",
@@ -685,14 +708,14 @@ const sweetsList: Product[] = [
   [
     "malai-poori",
     "Special Malai Poori",
-    560,
+    400,
     "Sweetened cream poori — melts in the mouth.",
     imgMalaiPoori,
   ],
   [
     "malai-kaja",
     "Malai Kaja",
-    600,
+    1200,
     "Traditional Andhra sweet with crispy layers, rich milk flavour, and delicious sweetness.",
     imgMalaiKaja,
   ],
@@ -719,19 +742,32 @@ const sweetsList: Product[] = [
   ],
 ].map(([id, name, p, d, img]) => {
   const product = mk(id as string, name as string, "sweets", img as string, p as number, d as string);
-  if (id === "sunnivundalu") {
-    product.price = 600;
-    product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
-  } else if (id === "madugula-halwa") {
+  if (id === "madugula-halwa") {
     product.price = 999;
     product.weights = { "250g": 250, "500g": 500, "1kg": 999 };
-  } else if (id === "dry-fruit-laddu" || id === "dry-fruit-mix") {
-    product.price = 600;
-    product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
+  } else if (id === "athreyapuram-potharekulu") {
+    product.price = 400;
+    product.weights = { "1kg": 400 } as Record<WeightLabel, number>;
+    product.availableWeights = ["1kg"];
+    product.weightLabelText = { "1kg": "1 Box (10 Pieces)" };
+    product.badge = "⭐ Must Try";
+  } else if (id === "bellam-potharekulu") {
+    product.price = 400;
+    product.weights = { "1kg": 400 } as Record<WeightLabel, number>;
+    product.availableWeights = ["1kg"];
+    product.weightLabelText = { "1kg": "1 Box (10 Pieces)" };
+    product.badge = "⭐ Must Try";
+  } else if (id === "malai-poori") {
+    product.price = 400;
+    product.weights = { "1kg": 400 } as Record<WeightLabel, number>;
+    product.availableWeights = ["1kg"];
+    product.weightLabelText = { "1kg": "1 Box (10 Pieces)" };
+    product.badge = "⭐ Must Try";
   } else if (id === "malai-kaja") {
-    product.price = 600;
-    product.weights = { "250g": 150, "500g": 300, "1kg": 600 };
+    product.price = 1200;
+    product.weights = { "250g": 300, "500g": 600, "1kg": 1200 };
     product.ingredients = "Maida, ghee, sugar, milk, cardamom.";
+    product.badge = "⭐ Must Try";
     product.shelfLife = "15 days from packing.";
     product.storage = "Store in an airtight jar in a cool, dry place.";
   } else if (id === "palakova") {
@@ -776,8 +812,12 @@ const vadiyaluList: Product[] = [
       ? "Traditional Andhra horse gram (Ulavacharu) flavoured vadiyalu, handmade and sun-dried."
       : "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
   );
-  product.price = 600;
-  product.weights = { "250g": 175, "500g": 300, "1kg": 600 };
+  product.price = p;
+  product.weights = buildWeightPrices(p);
+  if (id === "challa-mirapakayalu" || id === "gummadi") {
+    product.price = 999;
+    product.weights = buildWeightPrices(999);
+  }
   if (id === "ulavacharu") {
     product.ingredients = "Horse gram (ulavalu), urad dal, green chillies, salt, spices.";
     product.shelfLife = "6 months when stored properly.";
