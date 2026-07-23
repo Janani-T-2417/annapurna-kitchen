@@ -120,7 +120,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
                   : "border-border bg-warm hover:border-primary/40",
               )}
             >
-              {opt.label}
+              {opt.displayLabel}
             </button>
           ))}
         </div>
