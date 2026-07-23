@@ -100,6 +100,8 @@ import imgUlavacharuVadiyalu from "@/assets/p/ulavacharu-vadiyalu.jpg";
 import imgPalakova from "@/assets/p/palakova.jpg";
 import imgNuvvulaVundalu from "@/assets/p/nuvvula-vundalu.jpg";
 import imgKobbariVundalu from "@/assets/p/kobbari-vundalu.jpg";
+import imgCoconutKajjikayalu from "@/assets/p/coconut-kajjikayalu.jpg";
+import imgMilletsLaddu from "@/assets/p/millets-laddu.jpg";
 
 export type Category = {
   slug: string;
@@ -740,6 +742,20 @@ const sweetsList: Product[] = [
     "Traditional homemade coconut sweet prepared with fresh coconut and jaggery for an authentic Andhra taste.",
     imgKobbariVundalu,
   ],
+  [
+    "coconut-kajjikayalu",
+    "Coconut Kajjikayalu",
+    999,
+    "Traditional Andhra sweet prepared with fresh coconut, jaggery, and crispy golden pastry. Handmade with authentic homemade taste.",
+    imgCoconutKajjikayalu,
+  ],
+  [
+    "millets-laddu",
+    "Millets Laddu",
+    1200,
+    "Healthy homemade millet laddus prepared with nutritious millets, pure ghee, and jaggery. Rich in taste and nutrition.",
+    imgMilletsLaddu,
+  ],
 ].map(([id, name, p, d, img]) => {
   const product = mk(id as string, name as string, "sweets", img as string, p as number, d as string);
   if (id === "madugula-halwa") {
@@ -788,6 +804,20 @@ const sweetsList: Product[] = [
     product.ingredients = "Fresh coconut, jaggery, cardamom, ghee.";
     product.shelfLife = "15 days from packing.";
     product.storage = "Store in an airtight jar in a cool, dry place.";
+  } else if (id === "coconut-kajjikayalu") {
+    product.price = 999;
+    product.weights = { "250g": 250, "500g": 500, "1kg": 999 };
+    product.ingredients = "Maida, fresh coconut, jaggery, ghee, cardamom.";
+    product.badge = "⭐ Must Try";
+    product.shelfLife = "15 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
+  } else if (id === "millets-laddu") {
+    product.price = 1200;
+    product.weights = { "250g": 300, "500g": 600, "1kg": 1200 };
+    product.ingredients = "Mixed millets, pure ghee, jaggery, cardamom, dry fruits.";
+    product.badge = "🌿 Healthy";
+    product.shelfLife = "30 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
   }
   return product;
 });
@@ -812,8 +842,8 @@ const vadiyaluList: Product[] = [
       ? "Traditional Andhra horse gram (Ulavacharu) flavoured vadiyalu, handmade and sun-dried."
       : "Sun-dried under Andhra skies, ready to fry to a perfect crisp.",
   );
-  product.price = p;
-  product.weights = buildWeightPrices(p);
+  product.price = p as number;
+  product.weights = buildWeightPrices(p as number);
   if (id === "challa-mirapakayalu" || id === "gummadi") {
     product.price = 999;
     product.weights = buildWeightPrices(999);
