@@ -5,6 +5,7 @@ import { ShopProvider } from "@/store/shop";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { ScrollToTop } from "@/components/site/ScrollToTop";
 
 import Index from "@/pages/Index";
 import About from "@/pages/About";
