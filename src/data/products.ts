@@ -742,6 +742,20 @@ const sweetsList: Product[] = [
     "Traditional homemade coconut sweet prepared with fresh coconut and jaggery for an authentic Andhra taste.",
     imgKobbariVundalu,
   ],
+  [
+    "coconut-kajjikayalu",
+    "Coconut Kajjikayalu",
+    999,
+    "Traditional Andhra sweet prepared with fresh coconut, jaggery, and crispy golden pastry. Handmade with authentic homemade taste.",
+    imgCoconutKajjikayalu,
+  ],
+  [
+    "millets-laddu",
+    "Millets Laddu",
+    1200,
+    "Healthy homemade millet laddus prepared with nutritious millets, pure ghee, and jaggery. Rich in taste and nutrition.",
+    imgMilletsLaddu,
+  ],
 ].map(([id, name, p, d, img]) => {
   const product = mk(id as string, name as string, "sweets", img as string, p as number, d as string);
   if (id === "madugula-halwa") {
