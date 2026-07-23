@@ -804,6 +804,20 @@ const sweetsList: Product[] = [
     product.ingredients = "Fresh coconut, jaggery, cardamom, ghee.";
     product.shelfLife = "15 days from packing.";
     product.storage = "Store in an airtight jar in a cool, dry place.";
+  } else if (id === "coconut-kajjikayalu") {
+    product.price = 999;
+    product.weights = { "250g": 250, "500g": 500, "1kg": 999 };
+    product.ingredients = "Maida, fresh coconut, jaggery, ghee, cardamom.";
+    product.badge = "⭐ Must Try";
+    product.shelfLife = "15 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
+  } else if (id === "millets-laddu") {
+    product.price = 1200;
+    product.weights = { "250g": 300, "500g": 600, "1kg": 1200 };
+    product.ingredients = "Mixed millets, pure ghee, jaggery, cardamom, dry fruits.";
+    product.badge = "🌿 Healthy";
+    product.shelfLife = "30 days from packing.";
+    product.storage = "Store in an airtight jar in a cool, dry place.";
   }
   return product;
 });
