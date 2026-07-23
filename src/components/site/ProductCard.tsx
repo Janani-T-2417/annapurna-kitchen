@@ -136,7 +136,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
             </div>
             <div className="font-display text-xl text-primary">₹{selectedWeight.price}</div>
             <div className="text-[10px] text-muted-foreground">
-              {selectedWeight.label} · incl. of taxes
+              {selectedWeight.displayLabel} · incl. of taxes
             </div>
           </div>
           <button
