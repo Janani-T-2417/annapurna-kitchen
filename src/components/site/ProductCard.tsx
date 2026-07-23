@@ -120,7 +120,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
                   : "border-border bg-warm hover:border-primary/40",
               )}
             >
-              {opt.label}
+              {opt.displayLabel}
             </button>
           ))}
         </div>
@@ -136,7 +136,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
             </div>
             <div className="font-display text-xl text-primary">₹{selectedWeight.price}</div>
             <div className="text-[10px] text-muted-foreground">
-              {selectedWeight.label} · incl. of taxes
+              {selectedWeight.displayLabel} · incl. of taxes
             </div>
           </div>
           <button
@@ -148,7 +148,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         </div>
         <button
           onClick={() =>
-            openWhatsApp(waProductMessage(product.name, weight, getWeightPrice(product, weight)))
+            openWhatsApp(waProductMessage(product.name, selectedWeight.displayLabel, getWeightPrice(product, weight)))
           }
           type="button"
           className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-white shadow-soft hover:bg-[#1da851] transition"
