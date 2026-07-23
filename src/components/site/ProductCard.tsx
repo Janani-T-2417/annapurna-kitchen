@@ -148,7 +148,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         </div>
         <button
           onClick={() =>
-            openWhatsApp(waProductMessage(product.name, weight, getWeightPrice(product, weight)))
+            openWhatsApp(waProductMessage(product.name, selectedWeight.displayLabel, getWeightPrice(product, weight)))
           }
           type="button"
           className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-white shadow-soft hover:bg-[#1da851] transition"
