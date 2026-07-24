@@ -528,6 +528,14 @@ vegList.forEach((product) => {
   }
 });
 
+picklesList.forEach((product) => {
+  const config = vegPicklePrices[product.id];
+  if (config) {
+    product.price = config.price;
+    product.weights = config.weights;
+  }
+});
+
 // PODI
 const podiList: Product[] = [
   ["karapodi", "Karapodi", 650, "Fiery lentil-chilli powder for rice and ghee.", imgKarapodi],
@@ -825,12 +833,12 @@ const sweetsList: Product[] = [
 
 // VADIYALU
 const vadiyaluList: Product[] = [
-  ["aaviri", "Aaviri Vadiyalu", 360, imgAaviri],
+  ["aaviri", "Aaviri Vadiyalu", 600, imgAaviri],
   ["challa-mirapakayalu", "Challa Mirapakayalu", 380, imgChallaMirapakayalu],
   ["gummadi", "Gummadi Vadiyalu", 360, imgGummadi],
-  ["saggu-biyyam", "Saggu Biyyam Vadiyalu", 340, imgSagguBiyyam],
-  ["minapa", "Minapa Vadiyalu", 380, imgMinapa],
-  ["appada-puvvulu", "Appada Puvvulu", 360, imgAppadaPuvvulu],
+  ["saggu-biyyam", "Saggu Biyyam Vadiyalu", 600, imgSagguBiyyam],
+  ["minapa", "Minapa Vadiyalu", 600, imgMinapa],
+  ["appada-puvvulu", "Appada Puvvulu", 600, imgAppadaPuvvulu],
   ["ulavacharu", "Ulavacharu", 600, imgUlavacharuVadiyalu],
 ].map(([id, name, p, img]) => {
   const product = mk(
