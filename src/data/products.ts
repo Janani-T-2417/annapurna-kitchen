@@ -86,6 +86,7 @@ import imgAriselu from "@/assets/p/ariselu.jpg";
 import imgNethiAriselu from "@/assets/p/nethi-ariselu.jpg";
 import imgBellamGavvalu from "@/assets/p/bellam-gavvalu.jpg";
 import imgMalaiPoori from "@/assets/p/malai-poori.jpg";
+import imgMalaiLaddu from "@/assets/p/malai-laddu.jpg";
 
 import imgAaviri from "@/assets/p/aaviri.jpg";
 import imgChallaMirapakayalu from "@/assets/p/challa-mirapakayalu.jpg";
