@@ -690,7 +690,7 @@ const sweetsList: Product[] = [
     "Malai Laddu",
     1000,
     "Traditional milk-based laddu prepared with pure ghee and premium ingredients.",
-    imgDryFruitLaddu,
+    imgMalaiLaddu,
   ],
   [
     "madugula-halwa",
